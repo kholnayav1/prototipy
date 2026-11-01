@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8"><meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Каталог — МАРТдекор</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Jost:wght@400;500&display=swap&subset=cyrillic">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body data-page="catalog">
+<div id="top"></div>
+<div class="wrap cat-head">
+  <div class="crumbs"><a href="index.html">Главная</a> / Каталог</div>
+  <h1 id="cat-title" style="font-size:clamp(40px,4.6vw,64px)">Каталог</h1>
+  <p class="lead">Добавляйте материалы в&nbsp;подборку&nbsp;— менеджер проверит наличие и&nbsp;пришлёт расчёт. Найдено: <b id="cnt">0</b></p>
+</div>
+<div class="wrap cat">
+  <aside class="side">
+    <input class="search" id="q" type="search" placeholder="Поиск: шпон, Orac, обои…">
+    <div><h4>Раздел</h4><div class="chips" id="f-sec"></div></div>
+    <div><h4>Для&nbsp;какого помещения</h4><div class="chips" id="f-room"></div></div>
+    <label style="display:flex;gap:10px;align-items:center"><input type="checkbox" id="only"> Только в&nbsp;наличии</label>
+    <div class="need"><i class="ti ti-pencil"></i><span>В&nbsp;прототипе&nbsp;— выборка по&nbsp;2–3 позиции на&nbsp;раздел. В&nbsp;рабочем сайте подключим весь&nbsp;каталог с&nbsp;martdecor.online.</span></div>
+  </aside>
+  <div>
+    <p class="demo-note">Наличие показано для&nbsp;примера.</p>
+    <div class="grid" id="list"></div>
+  </div>
+</div>
+<div id="foot"></div>
+<script src="js/typo.js"></script>
+<script src="js/data.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
