@@ -1,7 +1,7 @@
 /* МАРТдекор — дизайн-система по концепции «Галерея материалов».
    Цвета, шрифты, сетка и размеры — из ТЗ ChatGPT (PROMPT_FOR_CLAUDE.txt, MARTdecor_concept.pdf). */
 :root {
-  --bg: #F4F3F1;
+  --bg: #F2F2F3;
   --white: #FFFFFF;
   --ink: #1E1A18;
   --muted: #6E655E;
@@ -10,8 +10,8 @@
   --sage: #788168;
   --sage-dark: #646C55;
   --beige: #B5A48A;
-  --card: #E9E7E4;
-  --line: #D9D6D2;
+  --card: #E6E7E9;
+  --line: #D6D7DA;
   --head: "Manrope", "Helvetica Neue", Arial, sans-serif;
   --body: "Onest", "Helvetica Neue", Arial, sans-serif;
   --r: 14px;
