@@ -612,3 +612,7 @@ textarea.field { height: 120px; padding: 16px 18px; resize: vertical; }
   .visit__fields { grid-template-columns: 1fr; }
   .visit__send { flex-direction: column; align-items: stretch; gap: 12px; }
 }
+
+/* Телефон: ленты листаются только вбок и не «пружинят» при прокрутке страницы, страница не сдвигается в сторону */
+html, body { overflow-x: clip; }
+.rail, .revs, .arts, .chips, .gal__th, .itabs { overscroll-behavior-x: none; touch-action: pan-x pan-y; }
