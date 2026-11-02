@@ -250,7 +250,8 @@ h1, h2, h3, h4 { font-family: var(--head); font-weight: 700; letter-spacing: -0.
 .rev > i { font-size: 32px; color: var(--wine); }
 .rev q { quotes: none; font-size: 16px; line-height: 25px; }
 .rev footer { margin-top: auto; display: flex; align-items: center; gap: 12px; }
-.rev .ava { width: 44px; height: 44px; border-radius: 50%; background: var(--card); display: grid; place-items: center; font: 700 16px/1 var(--head); color: var(--wine); }
+.rev .ava { width: 48px; height: 48px; border-radius: 50%; background: var(--card); display: grid; place-items: center; flex: none; object-fit: cover; color: var(--muted); }
+.rev .ava i { font-size: 24px; }
 .rev footer b { display: block; font: 700 15px/20px var(--head); }
 .rev footer small { font-size: 13px; color: var(--muted); }
 
@@ -596,4 +597,18 @@ textarea.field { height: 120px; padding: 16px 18px; resize: vertical; }
   .revs, .arts { display: grid; grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: 86%; gap: 12px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; margin: 0 calc(var(--pad) * -1); padding: 0 var(--pad) 4px; scroll-padding: 0 var(--pad); }
   .revs::-webkit-scrollbar, .arts::-webkit-scrollbar { display: none; }
   .revs > *, .arts > * { scroll-snap-align: start; }
+}
+
+/* Салон: сверху текст и карта с фото, ниже форма заявки на всю ширину */
+.visit__img { height: auto; min-height: 420px; }
+.visit__form { grid-column: 1 / -1; grid-template-columns: 2fr 3fr; gap: 40px; background: #fff; border-radius: var(--r-lg); padding: 32px; }
+.visit__intro { display: grid; gap: 12px; align-content: start; }
+.visit__fields { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.visit__fields textarea.field { grid-column: 1 / -1; height: 96px; }
+.visit__send { grid-column: 1 / -1; display: flex; align-items: center; gap: 20px; }
+@media (max-width: 767px) {
+  .visit__img { min-height: 0; }
+  .visit__form { grid-template-columns: 1fr; gap: 16px; padding: 20px; }
+  .visit__fields { grid-template-columns: 1fr; }
+  .visit__send { flex-direction: column; align-items: stretch; gap: 12px; }
 }

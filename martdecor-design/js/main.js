@@ -118,7 +118,7 @@
     var fresh = D.items.filter(function (x) { return x.c === "poliuretan" && x.n && news.indexOf(x) < 0; });
     $("#rail").innerHTML = news.slice(0, 6).concat(fresh.slice(0, 6)).map(card).join("");
     $$("[data-rail]").forEach(function (b) { b.addEventListener("click", function () { var r = $("#rail"); r.scrollBy({ left: (b.dataset.rail === "next" ? 1 : -1) * r.clientWidth * 0.75, behavior: "smooth" }); }); });
-    function revs(w) { $("#revs").innerHTML = C.reviews.filter(function (r) { return r.who === w; }).map(function (r) { return '<blockquote class="rev rv in">' + I("quote") + "<q>" + t(r.text) + '</q><footer><span class="ava">' + r.name.charAt(0) + "</span><span><b>" + esc(r.name) + "</b><small>" + esc(r.role) + "</small></span></footer></blockquote>"; }).join(""); }
+    function revs(w) { $("#revs").innerHTML = C.reviews.filter(function (r) { return r.who === w; }).map(function (r) { return '<blockquote class="rev rv in">' + I("quote") + "<q>" + t(r.text) + '</q><footer>' + (r.ava ? '<img class="ava" src="' + r.ava + '" alt="" loading="lazy">' : '<span class="ava">' + I("user") + "</span>") + "<span><b>" + esc(r.name) + "</b><small>" + esc(r.role) + "</small></span></footer></blockquote>"; }).join(""); }
     revs("d");
     $$("[data-rev]").forEach(function (b) { b.addEventListener("click", function () { $$("[data-rev]").forEach(function (x) { x.classList.toggle("on", x === b); }); revs(b.dataset.rev); }); });
     $("#arts").innerHTML = C.articles.map(artCard).join("");
