@@ -616,3 +616,22 @@ textarea.field { height: 120px; padding: 16px 18px; resize: vertical; }
 /* Телефон: ленты листаются только вбок и не «пружинят» при прокрутке страницы, страница не сдвигается в сторону */
 html, body { overflow-x: clip; }
 .rail, .revs, .arts, .chips, .gal__th, .itabs { overscroll-behavior-x: none; touch-action: pan-x pan-y; }
+
+/* Частые вопросы: слева заголовок и телефон, справа раскрывающийся список */
+.faq { display: grid; grid-template-columns: 2fr 3fr; gap: 40px; align-items: start; }
+.faq__head { display: grid; gap: 20px; justify-items: start; position: sticky; top: calc(var(--head-h) + 24px); }
+.faq__list { border-top: 1px solid var(--line); }
+.faq__item { border-bottom: 1px solid var(--line); }
+.faq__item summary { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 24px 0; font: 600 18px/26px var(--head); cursor: pointer; list-style: none; transition: color .2s; }
+.faq__item summary::-webkit-details-marker { display: none; }
+.faq__item summary:hover { color: var(--wine); }
+.faq__item summary i { flex: none; width: 36px; height: 36px; border-radius: 50%; border: 1px solid var(--line); display: grid; place-items: center; font-size: 18px; transition: transform .25s, background .2s, color .2s; }
+.faq__item[open] summary i { transform: rotate(45deg); background: var(--wine); border-color: var(--wine); color: #fff; }
+.faq__a { padding: 0 56px 24px 0; color: var(--muted); }
+.faq__a .link { margin-top: 12px; }
+@media (max-width: 767px) {
+  .faq { grid-template-columns: 1fr; gap: 24px; }
+  .faq__head { position: static; }
+  .faq__item summary { padding: 20px 0; font-size: 16px; line-height: 22px; }
+  .faq__a { padding-right: 0; }
+}
