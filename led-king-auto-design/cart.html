@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Корзина — Центр автосвета</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Unbounded:wght@600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css?v=1">
+</head>
+<body data-page="cart">
+<div id="site-header"></div>
+<main class="wrap">
+  <div class="crumbs"><a href="index.html">Главная</a> / Корзина</div>
+  <div class="page-h"><h1>Корзина</h1></div>
+  <div id="cart-root"></div>
+</main>
+<div id="site-footer"></div>
+<script src="js/data.js?v=1"></script>
+<script src="js/main.js?v=1"></script>
+<script>
+function renderCart() {
+  const c = cartRead().filter(i => byId(i.id)), root = document.getElementById('cart-root');
+  if (!c.length) {
+    root.innerHTML = `<div class="empty" style="padding:56px 20px"><h3 style="margin-bottom:10px">Корзина пока пустая</h3><p style="margin-bottom:20px">Выберите лампы в&nbsp;каталоге или&nbsp;оставьте заявку&nbsp;— подберём под&nbsp;вашу машину.</p>
+      <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap"><a class="btn arr" href="catalog.html">В&nbsp;каталог</a><button class="btn ghost" type="button" onclick="openLead()">Подбор по&nbsp;авто</button></div></div>`;
+    return;
+  }
+  const sum = c.reduce((s, i) => s + byId(i.id).price * i.qty, 0);
+  root.innerHTML = `<div class="cart-layout"><div>${c.map(i => { const p = byId(i.id); return `
+    <div class="c-row"><img src="${p.photos[0]}" alt="">
+      <div><a href="product.html?id=${p.id}"><b>${p.name}</b></a><span class="muted" style="font-size:14px">${RUB(p.price)} за&nbsp;шт.</span><br><button class="rm" type="button" onclick="setQty('${p.id}',0)">Удалить</button></div>
+      <div class="qty"><button type="button" onclick="setQty('${p.id}',${i.qty - 1})" aria-label="Меньше">−</button><span>${i.qty}</span><button type="button" onclick="setQty('${p.id}',${i.qty + 1})" aria-label="Больше">+</button></div>
+      <b style="font-family:var(--h);white-space:nowrap">${RUB(p.price * i.qty)}</b></div>`; }).join('')}</div>
+    <form class="c-sum" onsubmit="event.preventDefault();cartWrite([]);document.getElementById('cart-root').innerHTML=DONE.replace('Специалист напишет вам и&nbsp;предложит лампы под&nbsp;вашу машину.','Мы свяжемся с&nbsp;вами, подтвердим заказ и&nbsp;пришлём ссылку на&nbsp;оплату.')">
+      <div class="tot"><span>Итого</span><span>${RUB(sum)}</span></div>
+      <span class="muted" style="font-size:13px">Доставка Яндекс Доставкой уже в&nbsp;цене</span>
+      <div class="field"><label for="c-name">Имя</label><input id="c-name" class="in" required autocomplete="name"></div>
+      <div class="field"><label for="c-phone">Телефон или&nbsp;Telegram</label><input id="c-phone" class="in" required placeholder="+7 или @ник"></div>
+      <div class="field"><label for="c-city">Город</label><input id="c-city" class="in" required autocomplete="address-level2"></div>
+      <div class="field"><label for="c-car">Марка и&nbsp;модель авто</label><input id="c-car" class="in" placeholder="Проверим, что лампы подойдут"></div>
+      <button class="btn wide" type="submit">Оформить заказ</button>
+      <label class="consent"><input type="checkbox" required checked> <span>Согласие на&nbsp;<a href="#">обработку персональных данных</a></span></label>
+    </form></div>`;
+}
+function setQty(id, q) { let c = cartRead(); const f = c.find(i => i.id === id); if (q <= 0) c = c.filter(i => i.id !== id); else f.qty = q; cartWrite(c); renderCart(); }
+document.addEventListener('DOMContentLoaded', renderCart);
+</script>
+</body>
+</html>

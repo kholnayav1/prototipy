@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Оформление заказа — Центр автосвета</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Unbounded:wght@600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css?v=8">
+</head>
+<body data-page="cart">
+<div id="site-header"></div>
+<div class="wrap">
+  <div class="crumbs"><a href="index.html">Главная</a> · <a href="cart.html">Корзина</a> · Оформление</div>
+  <h1 class="page-h">Оформление заказа</h1>
+  <form class="cart-grid" onsubmit="order(event)">
+    <div>
+      <h3 class="step-h">1. Получатель</h3>
+      <div class="two">
+        <div class="field"><label for="n">Имя</label><input id="n" required autocomplete="name"></div>
+        <div class="field"><label for="t">Телефон</label><input id="t" required type="tel" autocomplete="tel" placeholder="+7"></div>
+      </div>
+      <div class="field"><label for="car">Автомобиль <span class="src">— проверим, что&nbsp;лампы подойдут</span></label><input id="car" placeholder="Марка, модель, год"></div>
+
+      <h3 class="step-h">2. Доставка</h3>
+      <div class="choice" id="dl">
+        <label><input type="radio" name="d" value="ya" checked><div><b>Яндекс Доставка</b><small>Основной способ. Стоимость уже&nbsp;включена в&nbsp;цену товара.</small></div><span class="pr">0&nbsp;₽</span></label>
+        <label><input type="radio" name="d" value="cdek"><div><b>СДЭК, Boxberry, Почта России</b><small>Если&nbsp;в&nbsp;вашем городе нет&nbsp;Яндекс Доставки. Стоимость согласуем заранее.</small></div><span class="pr">по&nbsp;тарифу</span></label>
+      </div>
+      <div class="field" style="margin-top:14px" id="addr"><label for="a">Город и&nbsp;адрес или&nbsp;пункт выдачи</label><input id="a" placeholder="Город, улица, дом"></div>
+
+      <h3 class="step-h">3. Оплата</h3>
+      <div class="choice">
+        <label><input type="radio" name="p" checked><div><b>Картой онлайн</b><small>Visa, MasterCard <span class="need">подключение эквайринга</span></small></div></label>
+        <label><input type="radio" name="p"><div><b>По&nbsp;QR-коду на&nbsp;расчётный счёт</b><small>Наведите камеру телефона&nbsp;— оплата через&nbsp;приложение банка.</small></div></label>
+        <label id="inst"><input type="radio" name="p"><div><b>Рассрочка от&nbsp;Т-Банка</b><small>Для&nbsp;заказов от&nbsp;3&nbsp;000&nbsp;₽. Банк отвечает быстро.</small></div></label>
+        <label><input type="radio" name="p"><div><b>По&nbsp;счёту для&nbsp;юрлиц</b><small>Безналичный расчёт по&nbsp;счёту или&nbsp;договору, 100% предоплата.</small></div></label>
+      </div>
+      <div class="field" style="margin-top:18px"><label for="c">Комментарий</label><textarea id="c" rows="3" placeholder="Например: нужна консультация по&nbsp;установке"></textarea></div>
+    </div>
+    <aside class="summary" id="sum"></aside>
+  </form>
+</div>
+<div id="site-footer"></div>
+<script src="js/data.js?v=2"></script>
+<script src="js/main.js?v=3"></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const c = cartRead();
+  if (!c.length) { location.href = 'cart.html'; return; }
+  const total = cartTotal();
+  if (total < 3000) document.getElementById('inst').style.display = 'none';
+  document.getElementById('sum').innerHTML = `
+    <h3 style="font-size:17px;margin-bottom:12px">Ваш заказ</h3>
+    ${c.map(i => { const p = byId(i.id); return p ? `<div class="row"><span>${p.name} × ${i.qty}</span><span>${RUB(p.price * i.qty)}</span></div>` : ''; }).join('')}
+    ${promoRead() ? `<div class="row" style="color:var(--ok)"><span>Промокод</span><span>−${PROMO.discount}%</span></div>` : ''}
+    <div class="row total"><span>Итого</span><span>${RUB(total)}</span></div>
+    <button class="btn wide big" type="submit" style="margin-top:12px">Оплатить ${RUB(total)}</button>
+    <p class="src" style="margin-top:10px">Демо-оплата: деньги не&nbsp;списываются.</p>`;
+  document.querySelectorAll('[name=d]').forEach(r => r.onchange = () =>
+    document.getElementById('addr').style.display = r.value === 'pick' && r.checked ? 'none' : 'block');
+});
+function order(e) {
+  e.preventDefault();
+  try { localStorage.setItem('lka_last', JSON.stringify({ total: cartTotal(), n: Math.floor(1000 + Math.random() * 8999) })); } catch (x) {}
+  cartWrite([]); promoWrite(false);
+  location.href = 'success.html';
+}
+</script>
+</body>
+</html>

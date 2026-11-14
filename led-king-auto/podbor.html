@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Подбор ламп по авто — Центр автосвета</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Unbounded:wght@600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css?v=8">
+</head>
+<body data-page="podbor">
+<div id="site-header"></div>
+<div class="wrap">
+  <div class="crumbs"><a href="index.html">Главная</a> · Подбор по&nbsp;авто</div>
+  <div class="split" style="align-items:start;padding-bottom:40px">
+    <div>
+      <h1 style="margin-bottom:14px">Подбор ламп под&nbsp;вашу машину</h1>
+      <p class="muted" style="font-size:17px">Самостоятельный выбор часто превращается в&nbsp;лотерею: лампа не&nbsp;помещается в&nbsp;фару из-за&nbsp;радиатора, светит пятном вместо чёткой границы или&nbsp;даёт ошибку на&nbsp;приборной панели.</p>
+      <p class="muted" style="font-size:17px">Мы&nbsp;не&nbsp;просто скинем артикул: специалист объяснит «на&nbsp;пальцах», почему этот&nbsp;вариант лучше для&nbsp;вас и&nbsp;как&nbsp;он&nbsp;улучшит видимость.</p>
+      <div id="stg"></div>
+      <h3 style="margin-bottom:12px">Уже&nbsp;знаем цоколь для&nbsp;этих машин</h3>
+      <table class="tbl" id="cars"></table>
+      <p class="src">По&nbsp;данным центра автосвета. Цоколь может зависеть от&nbsp;года и&nbsp;комплектации&nbsp;— уточним при&nbsp;заказе.</p>
+    </div>
+    <form class="picker" id="form" onsubmit="send(event)">
+      <h3>Заявка на&nbsp;подбор</h3>
+      <p class="muted" style="font-size:14.5px;margin:0">Ответим в&nbsp;мессенджере или&nbsp;перезвоним.</p>
+      <div class="field" style="margin-top:18px"><label for="f-car">Марка и&nbsp;модель</label><input id="f-car" required placeholder="Например, Lada Vesta"></div>
+      <div class="two">
+        <div class="field"><label for="f-year">Год выпуска</label><input id="f-year" inputmode="numeric" placeholder="2019"></div>
+        <div class="field"><label for="f-what">Что&nbsp;меняем</label>
+          <select id="f-what"><option>Ближний и&nbsp;дальний</option><option>Противотуманки</option><option>Габариты, ДХО, поворотники</option><option>Дополнительный свет</option><option>Не&nbsp;знаю, нужна консультация</option></select></div>
+      </div>
+      <div class="field"><label for="f-lens">Фары</label>
+        <select id="f-lens"><option>Обычные (рефлектор)</option><option>Линзованные</option><option>Не&nbsp;знаю</option></select></div>
+      <div class="field"><label for="f-contact">Телефон или&nbsp;ник в&nbsp;Telegram</label><input id="f-contact" required placeholder="+7 или @ник"></div>
+      <button class="btn wide big" type="submit">Подобрать лампы</button>
+      <p class="src" style="margin-top:12px">Демо: заявка никуда не&nbsp;уходит. На&nbsp;рабочем сайте&nbsp;— сразу в&nbsp;Telegram менеджеру.</p>
+    </form>
+  </div>
+</div>
+<div id="site-footer"></div>
+<script src="js/data.js?v=2"></script>
+<script src="js/main.js?v=3"></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  document.getElementById('stg').innerHTML = STG;
+  document.getElementById('cars').innerHTML = '<tr><th>Автомобиль</th><th>Что подходит</th><th></th></tr>' + CARS.map(c => {
+    const what = c.base === '24V' ? 'Лампы на&nbsp;24&nbsp;V' : c.base === '7"' ? 'Bi-LED фара 7"' : 'Цоколь ' + c.base;
+    const href = c.base === '24V' ? 'catalog.html?v24=1' : c.base === '7"' ? '#form' : 'catalog.html?base=' + c.base;
+    return `<tr><td>${c.name}</td><td><b>${what}</b></td><td style="text-align:right"><a class="link" href="${href}">${c.base === '7"' ? 'Узнать цену' : 'Смотреть'}</a></td></tr>`;
+  }).join('');
+  if (qs.get('car') === 'niva') { document.getElementById('f-car').value = 'Нива — фара 7"'; }
+});
+function send(e) {
+  e.preventDefault();
+  document.getElementById('form').innerHTML = `<h3>Заявка принята</h3><p class="muted">Специалист напишет вам и&nbsp;предложит варианты под&nbsp;вашу машину.</p><p class="src">Демо-режим прототипа.</p><a class="btn ghost" href="catalog.html">Пока посмотреть каталог</a>`;
+}
+</script>
+</body>
+</html>

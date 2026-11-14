@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Доставка, оплата и гарантия — Центр автосвета</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Unbounded:wght@600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css?v=1">
+</head>
+<body data-page="delivery">
+<div id="site-header"></div>
+<main class="wrap">
+  <div class="crumbs"><a href="index.html">Главная</a> / Доставка и&nbsp;оплата</div>
+  <div class="page-h"><h1>Доставка, оплата и&nbsp;гарантия</h1><p>Работаем дистанционно по&nbsp;всей России, Беларуси, Казахстану и&nbsp;СНГ.</p></div>
+
+  <div class="info">
+    <div><div class="ic" data-ic="truck"></div><h3>Доставка</h3><ul><li>В&nbsp;любой регион России, Беларусь, Казахстан, СНГ</li><li>Основная&nbsp;— Яндекс Доставка, по&nbsp;партнёрской программе Яндекса</li><li>Стоимость доставки уже в&nbsp;цене товара</li></ul></div>
+    <div><div class="ic" data-ic="card"></div><h3>Оплата</h3><ul><li>Картой Visa или&nbsp;MasterCard</li><li>По&nbsp;QR-коду на&nbsp;расчётный счёт</li><li>Рассрочка от&nbsp;Т-Банка для&nbsp;покупок от&nbsp;3&nbsp;000&nbsp;₽</li><li>Юрлицам&nbsp;— безнал по&nbsp;счёту или&nbsp;договору, 100% предоплата</li></ul></div>
+    <div id="warranty"><div class="ic" data-ic="shield"></div><h3>Гарантия</h3><ul><li>На&nbsp;лампы&nbsp;— 1&nbsp;год</li><li>На&nbsp;Bi-LED фару 7" для&nbsp;Нивы, УАЗ и&nbsp;Волги&nbsp;— 12&nbsp;месяцев от&nbsp;производителя</li></ul></div>
+  </div>
+
+  <section>
+    <h2 style="margin-bottom:20px">Способы доставки</h2>
+    <table class="tbl">
+      <tr><th>Способ</th><th>Стоимость</th></tr>
+      <tr><td>Яндекс Доставка&nbsp;— основной способ</td><td>Уже в&nbsp;цене товара</td></tr>
+      <tr><td>СДЭК, Boxberry, Почта России, 5Post, Авито Доставка</td><td>Согласуем заранее</td></tr>
+    </table>
+    <p class="muted" style="margin-top:14px">Если в&nbsp;вашем городе нет Яндекс Доставки&nbsp;— напишите нам до&nbsp;оплаты, выберем удобный способ и&nbsp;посчитаем стоимость.</p>
+  </section>
+
+  <section style="padding-top:0">
+    <div class="panel" style="padding:32px">
+      <h2 style="font-size:28px;margin-bottom:12px">Законно ли ставить LED вместо галогена?</h2>
+      <p class="muted" style="max-width:820px">Если фара не&nbsp;рассчитана заводом на&nbsp;светодиоды, замена формально считается изменением конструкции&nbsp;— штраф 500&nbsp;₽ по&nbsp;ч.&nbsp;1 ст.&nbsp;12.5 КоАП&nbsp;РФ. Расскажем, какие варианты безопаснее, и&nbsp;подберём лампы с&nbsp;правильной светотеневой границей, которые не&nbsp;слепят встречных.</p>
+      <button class="btn sm arr" type="button" style="margin-top:20px" onclick="openLead()">Подобрать лампы</button>
+    </div>
+  </section>
+</main>
+<div id="site-footer"></div>
+<script src="js/data.js?v=1"></script>
+<script src="js/main.js?v=1"></script>
+<script>document.addEventListener('DOMContentLoaded', () => document.querySelectorAll('[data-ic]').forEach(el => el.innerHTML = ICON[el.dataset.ic](40)));</script>
+</body>
+</html>

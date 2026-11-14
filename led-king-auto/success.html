@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Заказ оформлен — Центр автосвета</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Unbounded:wght@600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css?v=8">
+</head>
+<body data-page="cart">
+<div id="site-header"></div>
+<div class="wrap" style="max-width:720px;padding-top:70px;padding-bottom:90px;text-align:center">
+  <div style="width:76px;height:76px;border-radius:50%;margin:0 auto 24px;display:grid;place-items:center;background:rgba(47,123,255,.15);color:var(--blue-hi);box-shadow:0 0 40px var(--glow)">
+    <svg viewBox="0 0 24 24" width="36" height="36" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 9.5 18 20 6.5"/></svg>
+  </div>
+  <h1 style="font-size:clamp(26px,3.4vw,40px)">Спасибо, заказ принят!</h1>
+  <p class="muted" style="font-size:17px" id="info"></p>
+  <p class="muted">Мы&nbsp;свяжемся с&nbsp;вами, проверим, что&nbsp;лампы подойдут к&nbsp;машине, и&nbsp;пришлём трек-номер.</p>
+  <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:24px">
+    <a class="btn" href="https://t.me/led_king_auto" target="_blank" rel="noopener">Наш&nbsp;Telegram: видео и&nbsp;обзоры</a>
+    <a class="btn ghost" href="catalog.html">Вернуться в&nbsp;каталог</a>
+  </div>
+  <p class="src" style="margin-top:28px">Демо-режим: заказ никуда не&nbsp;отправлен.</p>
+</div>
+<div id="site-footer"></div>
+<script src="js/data.js?v=2"></script>
+<script src="js/main.js?v=3"></script>
+<script>
+try { const o = JSON.parse(localStorage.getItem('lka_last')); if (o) document.getElementById('info').innerHTML = `Номер заказа <b style="color:var(--ink)">№${o.n}</b> на&nbsp;сумму <b style="color:var(--ink)">${RUB(o.total)}</b>.`; } catch (e) {}
+</script>
+</body>
+</html>

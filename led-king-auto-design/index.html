@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Центр автосвета — LED-лампы, линзы и ПТФ с подбором под ваше авто</title>
+<meta name="description" content="Светодиодные лампы H4, H7, H11, Bi-LED линзы, противотуманные фары и аксессуары для легковых и грузовых авто. Подбор под машину, доставка по России и СНГ.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Unbounded:wght@600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css?v=1">
+</head>
+<body data-page="home">
+<div id="site-header"></div>
+
+<!-- 1. Первый экран -->
+<div class="hero">
+  <div class="hero-photo" aria-hidden="true"><div class="car">
+    <img src="img/hero-bg-2.jpg" alt="" fetchpriority="high">
+    <i class="glow gl-l"></i><i class="glow gl-r"></i><i class="glow gl-f"></i>
+  </div></div>
+  <div class="hero-night" aria-hidden="true"></div>
+  <div class="wrap">
+    <div>
+      <div class="eyebrow">Центр автомобильного света</div>
+      <h1>Подберём <span>LED-лампы</span> под&nbsp;ваше авто</h1>
+      <p class="lead">Лампы H4, H7, H11, Bi-LED линзы, противотуманки и&nbsp;сигнальные огни для&nbsp;легковых и&nbsp;грузовых машин. Яркий свет с&nbsp;правильной светотеневой границей&nbsp;— не&nbsp;слепит встречных.</p>
+      <div class="hero-act">
+        <a href="catalog.html" class="btn arr">Перейти в&nbsp;каталог</a>
+        <button type="button" class="btn ghost" onclick="openLead()">Оставить заявку</button>
+      </div>
+      <div class="hero-tags">
+        <span class="pill">Гарантия 1&nbsp;год</span>
+        <span class="pill">Линейка на&nbsp;24&nbsp;V для&nbsp;грузовиков</span>
+        <span class="pill">Доставка по&nbsp;РФ и&nbsp;СНГ</span>
+        <span class="pill">Рассрочка от&nbsp;3&nbsp;000&nbsp;₽</span>
+      </div>
+    </div>
+  </div>
+  <svg class="beam" viewBox="0 0 1440 60" preserveAspectRatio="none" aria-hidden="true">
+    <defs><linearGradient id="bm" x1="0" x2="1"><stop offset="0" stop-color="#2F7CFF" stop-opacity="0"/><stop offset=".5" stop-color="#4A97FF"/><stop offset="1" stop-color="#2F7CFF" stop-opacity=".3"/></linearGradient></defs>
+    <path d="M0 56 H760 L840 24 H1440" fill="none" stroke="url(#bm)" stroke-width="2"/>
+  </svg>
+</div>
+
+<!-- 2. Каталог -->
+<section>
+  <div class="wrap">
+    <div class="sec-head">
+      <div><h2>Каталог</h2><p>Популярные категории</p></div>
+      <a href="catalog.html" class="link-more">Весь каталог →</a>
+    </div>
+    <div class="cats" id="cats"></div>
+  </div>
+</section>
+
+<!-- 3. Чаще всего берут -->
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Чаще всего берут</h2>
+      <div class="slider-nav"><button class="ic-btn" id="h-prev" aria-label="Назад">←</button><button class="ic-btn" id="h-next" aria-label="Вперёд">→</button></div>
+    </div>
+    <div class="scroller" id="hits"></div>
+  </div>
+</section>
+
+<!-- 4. СТГ -->
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="panel stg-block">
+      <div>
+        <h2>Ярко для&nbsp;вас, безопасно для&nbsp;встречных</h2>
+        <p>Лампы с&nbsp;линзой дают чёткую светотеневую границу (СТГ)&nbsp;— ровная линия со&nbsp;ступенькой вверх под&nbsp;15°.</p>
+        <a href="catalog.html?lens=1" class="btn sm arr">Лампы с&nbsp;линзой</a>
+      </div>
+      <div class="road">
+        <span class="lbl">Без линзы</span>
+        <svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+          <defs>
+            <radialGradient id="glowA" cx="50%" cy="58%" r="55%"><stop offset="0" stop-color="#fff" stop-opacity=".95"/><stop offset=".25" stop-color="#e8f0ff" stop-opacity=".55"/><stop offset=".7" stop-color="#9fb5d8" stop-opacity=".12"/><stop offset="1" stop-color="#000" stop-opacity="0"/></radialGradient>
+            <linearGradient id="skyA" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#070b14"/><stop offset="1" stop-color="#121a28"/></linearGradient>
+          </defs>
+          <rect width="400" height="300" fill="url(#skyA)"/>
+          <path d="M0 300 L170 170 H230 L400 300 Z" fill="#1a1f29"/>
+          <path d="M200 175 V185 M200 200 V215 M200 235 V255 M200 275 V300" stroke="#8a8f99" stroke-width="3"/>
+          <ellipse cx="200" cy="175" rx="260" ry="150" fill="url(#glowA)"/>
+        </svg>
+      </div>
+      <div class="road good">
+        <span class="lbl">С&nbsp;линзой (СТГ)</span>
+        <svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+          <defs>
+            <linearGradient id="skyB" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#05080f"/><stop offset="1" stop-color="#0b111d"/></linearGradient>
+            <radialGradient id="litB" cx="55%" cy="12%" r="95%"><stop offset="0" stop-color="#f2f6ff" stop-opacity=".9"/><stop offset=".35" stop-color="#c9d8f5" stop-opacity=".45"/><stop offset=".8" stop-color="#4b5d80" stop-opacity=".12"/><stop offset="1" stop-color="#000" stop-opacity="0"/></radialGradient>
+            <clipPath id="cutB"><path d="M0 300 V160 H230 L262 140 H400 V300 Z"/></clipPath>
+          </defs>
+          <rect width="400" height="300" fill="url(#skyB)"/>
+          <path d="M0 300 L170 170 H230 L400 300 Z" fill="#1d2330"/>
+          <rect x="-60" y="130" width="520" height="220" fill="url(#litB)" clip-path="url(#cutB)"/>
+          <path d="M200 175 V185 M200 200 V215 M200 235 V255 M200 275 V300" stroke="#e7ecf5" stroke-width="3"/>
+          <path d="M0 160 H230 L262 140 H400" fill="none" stroke="#4A97FF" stroke-width="3"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 5. Грузовикам -->
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="panel truck">
+      <div class="txt">
+        <h2>Грузовикам: полная линейка ламп на&nbsp;24&nbsp;V</h2>
+        <div class="bases"><span>H1</span><span>H4</span><span>H7</span><span>H11</span><span>9005</span><span>9006</span><span>9012</span></div>
+        <a href="catalog.html?v24=1" class="btn sm arr">Лампы на&nbsp;24&nbsp;V</a>
+      </div>
+      <div class="pic"><img src="img/truck-24v.jpg" alt="Светодиодные лампы H4 для грузовиков на 24 V" loading="lazy"></div>
+    </div>
+  </div>
+</section>
+
+<!-- 6. Почему покупают у нас -->
+<section style="padding-top:0">
+  <div class="wrap">
+    <h2 style="margin-bottom:24px">Почему покупают у&nbsp;нас</h2>
+    <div class="usp" id="usp">
+      <div><div class="ic" data-ic="car"></div><b>Подбор под&nbsp;машину</b><span>Поможем выбрать подходящий цоколь и&nbsp;лампу именно для&nbsp;вашего авто</span></div>
+      <div><div class="ic" data-ic="shield"></div><b>Гарантия 1&nbsp;год</b><span>Уверенность в&nbsp;качестве и&nbsp;стабильной работе</span></div>
+      <div><div class="ic" data-ic="box"></div><b>Доставка в&nbsp;цене</b><span>Стоимость уже с&nbsp;доставкой до&nbsp;вашего города (Яндекс Доставка)</span></div>
+      <div><div class="ic" data-ic="play"></div><b>Видео до&nbsp;покупки</b><span>Обзоры и&nbsp;тесты света каждой лампы&nbsp;— смотрите, как&nbsp;светит, перед заказом</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 7. Как заказать -->
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="steps-h"><h2>Как заказать</h2><p>Работаем дистанционно по&nbsp;всей России, Беларуси, Казахстану и&nbsp;СНГ</p></div>
+    <div class="steps">
+      <div class="step"><span class="n">1</span><div><b>Выберите лампу</b><span>В&nbsp;каталоге или&nbsp;с&nbsp;помощью <br>подбора по&nbsp;авто</span></div></div>
+      <i class="step-arr" aria-hidden="true">›</i>
+      <div class="step"><span class="n">2</span><div><b>Оплатите удобно</b><span>Карта, QR-код, рассрочка от&nbsp;Т-Банка <br>от&nbsp;3&nbsp;000&nbsp;₽, счёт для&nbsp;юрлиц</span></div></div>
+      <i class="step-arr" aria-hidden="true">›</i>
+      <div class="step"><span class="n">3</span><div><b>Получите в&nbsp;своём городе</b><span>Доставка по&nbsp;РФ и&nbsp;СНГ, <br>цена уже с&nbsp;доставкой</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 8. Отзывы — примеры, пока клиент не прислал настоящие -->
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Отзывы автолюбителей</h2>
+      <div class="slider-nav"><button class="ic-btn" id="r-prev" aria-label="Назад">←</button><button class="ic-btn" id="r-next" aria-label="Вперёд">→</button></div>
+    </div>
+    <div class="reviews" id="reviews"></div>
+  </div>
+</section>
+
+<!-- 9. Форма подбора -->
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="lead-box">
+      <div>
+        <div class="eyebrow">Подбор ламп</div>
+        <h2>Не знаете, какая лампа нужна для&nbsp;вашего авто?</h2>
+        <p>Оставьте заявку на&nbsp;подбор, и&nbsp;мы подберём лампы конкретно под&nbsp;вашу марку и&nbsp;модель.</p>
+      </div>
+      <form id="inline-form" onsubmit="event.preventDefault();this.innerHTML=DONE"></form>
+    </div>
+  </div>
+</section>
+
+<!-- 10. FAQ -->
+<section style="padding-top:0">
+  <div class="wrap">
+    <h2 style="margin-bottom:24px">Частые вопросы</h2>
+    <div class="faq">
+      <details><summary>Как светят ваши лампы?</summary><p>Снимаем видеообзоры: показываем яркость, чёткость и&nbsp;дальность света в&nbsp;реальных условиях. Видео есть в&nbsp;группе ВКонтакте и&nbsp;в&nbsp;нашем Telegram.</p></details>
+      <details><summary>Подойдёт ли лампа к&nbsp;моей машине?</summary><p>Лампа может не&nbsp;поместиться в&nbsp;фару из-за радиатора или&nbsp;дать ошибку на&nbsp;приборной панели. Поэтому подбираем под&nbsp;конкретную машину: напишите марку, модель и&nbsp;год&nbsp;— предложим варианты, которые встанут по&nbsp;креплению и&nbsp;правильно сфокусируются.</p></details>
+      <details><summary>Будут ли лампы слепить встречных?</summary><p>Лампы с&nbsp;линзой дают чёткую светотеневую границу и&nbsp;не&nbsp;слепят. С&nbsp;противотуманками важна регулировка: многие ставят вместо туманок неподходящие фары или&nbsp;не&nbsp;регулируют их&nbsp;— отсюда ослепление. Подскажем, как&nbsp;настроить.</p></details>
+      <details><summary>Есть лампы на&nbsp;24&nbsp;V для&nbsp;грузовика?</summary><p>Да: H1, H4, H7, H11, 9005, 9006, 9012 в&nbsp;головной свет, а&nbsp;также габариты, ДХО, поворотники, стопы и&nbsp;освещение салона.</p></details>
+      <details><summary>Есть такие же, но&nbsp;без&nbsp;стробоскопа?</summary><p>Да, есть версии без&nbsp;эффекта стробоскопа&nbsp;— для&nbsp;обычной езды.</p></details>
+      <details><summary>Сколько стоит доставка?</summary><p>Цена товара уже включает доставку Яндекс Доставкой в&nbsp;ваш город. Если в&nbsp;вашем городе её нет&nbsp;— согласуем СДЭК, Boxberry или&nbsp;Почту России.</p></details>
+    </div>
+  </div>
+</section>
+
+<div id="site-footer"></div>
+<script src="js/data.js?v=1"></script>
+<script src="js/main.js?v=1"></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  // разделы
+  document.getElementById('cats').innerHTML = CATEGORIES.map(c => {
+    const n = PRODUCTS.filter(p => p.cat === c.id).length;
+    return `<a class="cat" href="catalog.html?cat=${c.id}"><div class="im"><img src="${c.img}" alt="" loading="lazy"></div><b>${c.name}</b><em>${n} ${plural(n, 'товар', 'товара', 'товаров')}</em><span class="go">→</span></a>`;
+  }).join('');
+
+  // хиты
+  document.getElementById('hits').innerHTML = HITS.map(byId).filter(Boolean).map(cardHTML).join('');
+  slider('hits', 'h-prev', 'h-next');
+
+  // иконки преимуществ
+  document.querySelectorAll('#usp .ic').forEach(el => el.innerHTML = ICON[el.dataset.ic](40));
+
+  // отзывы для дизайна — придуманы, фото — сгенерированные нейросетью лица (thispersondoesnotexist.com); перед запуском заменить настоящими
+  const RV = [
+    ['Алексей', 'Lada Granta', 'LED H4', 'Поставил H4&nbsp;— свет отличный, СТГ ровная, встречных не&nbsp;слепит. Доставка пришла быстро.', ['#2F7CFF', '#1B3F8F']],
+    ['Дмитрий', 'Hyundai Solaris', 'Bi-LED ПТФ H11', 'Брал Bi-LED ПТФ&nbsp;— качество на&nbsp;уровне. 6&nbsp;режимов, светит мощно. Рекомендую!', ['#F5A623', '#9A5A08']],
+    ['Сергей', 'КамАЗ', 'LED H7 24&nbsp;V', 'Нужно было на&nbsp;грузовик 24&nbsp;V&nbsp;— всё подобрали, подошло идеально. Свет ярче, езжу с&nbsp;комфортом.', ['#22C55E', '#0E6B34']],
+    ['Ирина', 'KIA Rio', 'LED H4 с&nbsp;пультом', 'Взяла лампы с&nbsp;пультом: в&nbsp;дождь включаю жёлтый, в&nbsp;городе белый. Поставили в&nbsp;сервисе за&nbsp;15&nbsp;минут.', ['#A855F7', '#5B1E9C']],
+    ['Николай', 'Нива 4x4', 'Bi-LED фара 7"', 'Фары встали на&nbsp;штатные разъёмы без&nbsp;доработок. Ночью на&nbsp;грунтовке теперь видно далеко и&nbsp;широко.', ['#06B6D4', '#0B5C73']],
+    ['Марина', 'Hyundai Creta', 'P21W для&nbsp;ДХО', 'Боялась ошибок на&nbsp;панели&nbsp;— всё работает. Ходовые огни яркие и&nbsp;ровные, машина выглядит свежее.', ['#EC4899', '#8A1A55']],
+    ['Артём', 'Lada Largus', 'Мини-линзы H4', 'Сначала прислали видео, как&nbsp;светят лампы,&nbsp;— это и&nbsp;решило. Граница чёткая, обочину видно отлично.', ['#4A97FF', '#23407A']]
+  ];
+  const AVA = (n, i) => `<img src="img/ava-${i + 1}.jpg" alt="${n}" width="48" height="48" loading="lazy">`;
+  document.getElementById('reviews').innerHTML = RV.map(([n, car, item, t, c], i) => `
+    <article class="rv"><div class="st" aria-label="5 из 5">★★★★★</div><p>${t}</p>
+      <div class="who"><span class="ava">${AVA(n, i)}</span><div><b>${n}</b><span>${car}</span><span>${/а$/.test(n) ? 'Купила' : 'Купил'}: ${item}</span></div></div></article>`).join('');
+  slider('reviews', 'r-prev', 'r-next');
+
+  document.getElementById('inline-form').innerHTML = LEAD_FORM.replace(/id="m-/g, 'id="i-').replace(/for="m-/g, 'for="i-');
+});
+</script>
+</body>
+</html>

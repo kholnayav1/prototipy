@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Каталог — Центр автосвета</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Unbounded:wght@600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css?v=1">
+</head>
+<body data-page="catalog">
+<div id="site-header"></div>
+<main class="wrap">
+  <div class="crumbs"><a href="index.html">Главная</a> / <span id="crumb">Каталог</span></div>
+  <div class="page-h"><h1 id="ttl">Каталог</h1></div>
+  <div class="cat-layout">
+    <aside class="filters" id="filters" aria-label="Фильтры">
+      <h4>Раздел</h4>
+      <select class="in" id="f-cat"><option value="">Все разделы</option></select>
+      <h4>Цоколь</h4>
+      <div class="chips" id="f-base"></div>
+      <h4>Цвет света</h4>
+      <div class="checks" id="f-light"></div>
+      <h4>Напряжение</h4>
+      <div class="checks"><label><input type="checkbox" id="f-24"> Подходит для&nbsp;24&nbsp;V</label><label><input type="checkbox" id="f-lens"> С&nbsp;линзой</label></div>
+      <h4>Цена, ₽</h4>
+      <div class="prices"><input class="in" id="f-min" inputmode="numeric" placeholder="от" aria-label="Цена от"><input class="in" id="f-max" inputmode="numeric" placeholder="до" aria-label="Цена до"></div>
+      <button class="btn wide sm" type="button" id="f-show" style="margin-top:18px">Показать</button>
+      <button class="reset" type="button" id="f-reset">Сбросить фильтры</button>
+    </aside>
+    <div>
+      <div class="cat-top">
+        <button class="btn ghost sm f-toggle" type="button" onclick="document.getElementById('filters').classList.add('on')">Фильтры</button>
+        <span class="n" id="found"></span>
+        <select class="in" id="sort" aria-label="Сортировка">
+          <option value="pop">По популярности</option><option value="cheap">Сначала дешевле</option><option value="exp">Сначала дороже</option>
+        </select>
+      </div>
+      <div class="goods three" id="list"></div>
+    </div>
+  </div>
+</main>
+<div id="site-footer"></div>
+<script src="js/data.js?v=1"></script>
+<script src="js/main.js?v=1"></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const st = { cat: qs.get('cat') || '', base: new Set(qs.get('base') ? [qs.get('base')] : []), light: new Set(), v24: qs.get('v24') === '1', lens: qs.get('lens') === '1', min: '', max: '', q: (qs.get('q') || '').trim().toLowerCase() };
+  const $ = id => document.getElementById(id);
+  $('f-cat').innerHTML += CATEGORIES.map(c => `<option value="${c.id}">${c.name}</option>`).join('');
+  const bases = [...new Set(PRODUCTS.flatMap(p => p.bases))];
+  const order = ['H1', 'H4', 'H7', 'H8', 'H11', 'HB3', 'HB4', '9005', '9006', '9012', 'P21W', 'P21/5W', 'PY21W', 'W21/5W', 'WY21W', 'W5W'];
+  bases.sort((a, b) => (order.indexOf(a) + 1 || 99) - (order.indexOf(b) + 1 || 99));
+  $('f-base').innerHTML = bases.map(b => `<button type="button" data-b="${b}">${b}</button>`).join('');
+  const lights = [...new Set(PRODUCTS.flatMap(p => p.light))];
+  $('f-light').innerHTML = lights.map(l => `<label><input type="checkbox" value="${l}"><span class="dot" style="background:${LIGHT_HEX[l] || '#fff'}"></span>${l}</label>`).join('');
+
+  function sync() {
+    $('f-cat').value = st.cat; $('f-24').checked = st.v24; $('f-lens').checked = st.lens;
+    $('f-base').querySelectorAll('button').forEach(b => b.classList.toggle('on', st.base.has(b.dataset.b)));
+  }
+  function render() {
+    const min = +st.min || 0, max = +st.max || Infinity;
+    let list = PRODUCTS.filter(p =>
+      (!st.cat || p.cat === st.cat) &&
+      (!st.base.size || p.bases.some(b => st.base.has(b))) &&
+      (!st.light.size || p.light.some(l => st.light.has(l))) &&
+      (!st.v24 || p.v24) && (!st.lens || p.lens) &&
+      ((!st.min && !st.max) || (p.price && p.price >= min && p.price <= max)) &&
+      (!st.q || (p.name + ' ' + p.bases.join(' ') + ' ' + (p.sku || '')).toLowerCase().includes(st.q)));
+    const s = $('sort').value;
+    if (s === 'cheap') list.sort((a, b) => a.price - b.price);
+    if (s === 'exp') list.sort((a, b) => b.price - a.price);
+    if (s === 'pop') list.sort((a, b) => (b.hit ? 1 : 0) - (a.hit ? 1 : 0));
+    const c = CATEGORIES.find(x => x.id === st.cat);
+    $('ttl').textContent = st.q ? `Поиск: «${qs.get('q')}»` : c ? c.name : 'Каталог';
+    $('crumb').textContent = c ? c.name : 'Каталог';
+    $('found').textContent = `Найдено: ${list.length} ${plural(list.length, 'товар', 'товара', 'товаров')}`;
+    $('list').innerHTML = list.length ? list.map(cardHTML).join('') : '<div class="empty">Ничего не&nbsp;нашли. Сбросьте фильтры или&nbsp;<a class="link-more" href="#" onclick="event.preventDefault();openLead()">оставьте заявку на&nbsp;подбор</a>.</div>';
+  }
+  $('f-cat').onchange = e => { st.cat = e.target.value; render(); };
+  $('f-base').onclick = e => { const b = e.target.dataset.b; if (!b) return; st.base.has(b) ? st.base.delete(b) : st.base.add(b); sync(); render(); };
+  $('f-light').onchange = e => { e.target.checked ? st.light.add(e.target.value) : st.light.delete(e.target.value); render(); };
+  $('f-24').onchange = e => { st.v24 = e.target.checked; render(); };
+  $('f-lens').onchange = e => { st.lens = e.target.checked; render(); };
+  $('f-min').oninput = e => { st.min = e.target.value.replace(/\D/g, ''); render(); };
+  $('f-max').oninput = e => { st.max = e.target.value.replace(/\D/g, ''); render(); };
+  $('sort').onchange = render;
+  $('f-show').onclick = () => { $('filters').classList.remove('on'); window.scrollTo({ top: 0, behavior: 'smooth' }); };
+  $('f-reset').onclick = () => { st.cat = ''; st.base.clear(); st.light.clear(); st.v24 = st.lens = false; st.min = st.max = ''; st.q = '';
+    $('f-min').value = $('f-max').value = ''; $('f-light').querySelectorAll('input').forEach(i => i.checked = false); sync(); render(); };
+  sync(); render();
+});
+</script>
+</body>
+</html>

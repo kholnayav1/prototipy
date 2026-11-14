@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Корзина — Центр автосвета</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Unbounded:wght@600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css?v=8">
+</head>
+<body data-page="cart">
+<div id="site-header"></div>
+<div class="wrap">
+  <div class="crumbs"><a href="index.html">Главная</a> · Корзина</div>
+  <h1 class="page-h">Корзина</h1>
+  <div class="cart-grid" id="cart"></div>
+</div>
+<div id="site-footer"></div>
+<script src="js/data.js?v=2"></script>
+<script src="js/main.js?v=3"></script>
+<script>
+function paint() {
+  const c = cartRead(), box = document.getElementById('cart');
+  if (!c.length) {
+    box.innerHTML = `<div class="empty" style="grid-column:1/-1"><p>Корзина пока пустая.</p><a class="btn" href="catalog.html">В&nbsp;каталог</a> <a class="btn ghost" href="podbor.html">Подобрать по&nbsp;авто</a></div>`;
+    return;
+  }
+  const sum = cartSum(), disc = promoRead() ? Math.round(sum * PROMO.discount / 100) : 0;
+  const hasAcc = c.some(i => byId(i.id) && byId(i.id).cat === 'acc');
+  const hasFog = c.some(i => byId(i.id) && byId(i.id).cat === 'fog');
+  box.innerHTML = `<div>
+    ${c.map((i, n) => { const p = byId(i.id); if (!p) return ''; return `
+      <div class="cart-item">
+        <a href="product.html?id=${p.id}">${ph(p, '')}</a>
+        <div><h3><a href="product.html?id=${p.id}">${p.name}</a></h3>
+          <div class="meta">${[p.bases.join(', '), i.opt].filter(Boolean).join(' · ')}</div>
+          <div style="font-weight:700;margin-top:6px">${RUB(p.price)}</div></div>
+        <div style="display:flex;gap:12px;align-items:center">
+          <div class="qty"><button onclick="chg(${n},-1)" aria-label="Меньше">−</button><span>${i.qty}</span><button onclick="chg(${n},1)" aria-label="Больше">+</button></div>
+          <button onclick="del(${n})" class="muted" aria-label="Удалить">✕</button>
+        </div>
+      </div>`; }).join('')}
+    ${hasFog && !hasAcc ? `<div class="fit" style="margin-top:6px">${ICON.bulb}<div><b>Ставите противотуманки сами?</b> Пригодится <a class="link" href="product.html?id=wiring">проводка с&nbsp;кнопкой</a> за&nbsp;1&nbsp;155&nbsp;₽.</div></div>` : ''}
+  </div>
+  <aside class="summary">
+    <div class="row"><span>Товары</span><span>${RUB(sum)}</span></div>
+    ${disc ? `<div class="row" style="color:var(--ok)"><span>Промокод ${PROMO.code}</span><span>−${RUB(disc)}</span></div>` : ''}
+    <div class="row"><span>Доставка Яндекс Доставкой</span><span>в&nbsp;цене</span></div>
+    <div class="row total"><span>Итого</span><span>${RUB(sum - disc)}</span></div>
+    <div class="promo"><input id="promo" placeholder="Промокод" value="${promoRead() ? PROMO.code : ''}"><button class="btn ghost" onclick="applyPromo()">OK</button></div>
+    <a class="btn wide big" href="checkout.html">Оформить заказ</a>
+    ${sum >= 3000 ? '<p class="src" style="margin-top:12px">Доступна рассрочка от&nbsp;Т-Банка.</p>' : ''}
+    <p class="src">Промокод для&nbsp;проверки: ${PROMO.code}</p>
+  </aside>`;
+}
+function chg(n, d) { const c = cartRead(); c[n].qty = Math.max(1, c[n].qty + d); cartWrite(c); paint(); }
+function del(n) { const c = cartRead(); c.splice(n, 1); cartWrite(c); paint(); }
+function applyPromo() {
+  const ok = document.getElementById('promo').value.trim().toUpperCase() === PROMO.code;
+  promoWrite(ok); toast(ok ? 'Промокод применён' : 'Такого промокода нет'); paint();
+}
+document.addEventListener('DOMContentLoaded', paint);
+</script>
+</body>
+</html>

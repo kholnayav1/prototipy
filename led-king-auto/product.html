@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Товар — Центр автосвета</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Unbounded:wght@600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css?v=8">
+</head>
+<body data-page="catalog">
+<div id="site-header"></div>
+<div class="wrap">
+  <div class="crumbs" id="crumbs"></div>
+  <div class="product" id="product"></div>
+  <section style="padding:50px 0 70px">
+    <div class="sec-head"><div><h2>Для&nbsp;установки пригодится</h2><p>Проводка, контроллеры и&nbsp;похожие лампы.</p></div></div>
+    <div class="goods" id="related"></div>
+  </section>
+</div>
+<div id="site-footer"></div>
+<script src="js/data.js?v=2"></script>
+<script src="js/main.js?v=3"></script>
+<script>
+let picked = { light: '', qty: 1 };
+function paint() {
+  const p = byId(qs.get('id')) || PRODUCTS[0];
+  const cat = CATEGORIES.find(c => c.id === p.cat);
+  document.title = p.name + ' — Центр автосвета';
+  picked.light = p.light[0] || '';
+  document.getElementById('crumbs').innerHTML =
+    `<a href="index.html">Главная</a> · <a href="catalog.html">Каталог</a> · <a href="catalog.html?cat=${p.cat}">${cat.name}</a>`;
+
+  const lightRow = p.light.length > 1 ? `<div class="opt-row"><b>Цвет света</b><div class="opts">${p.light.map((l, i) =>
+      `<button class="opt ${i ? '' : 'on'}" onclick="pickLight(this,'${l}')"><span class="sw" style="background:${LIGHT_HEX[l]}"></span>${l}</button>`).join('')}</div>
+      ${p.cat === 'head' ? '<p class="src" style="margin-top:8px">Все три режима в&nbsp;одной лампе&nbsp;— переключаются с&nbsp;пульта. Здесь выбор для&nbsp;примера.</p>' : ''}</div>` : '';
+  const fitCars = CARS.filter(c => p.bases.includes(c.base)).map(c => c.name);
+  const fit = fitCars.length
+    ? `<div class="fit">${ICON.car}<div><b>Подходит для&nbsp;${fitCars.join(', ')}</b> и&nbsp;других авто с&nbsp;цоколем ${p.bases[0]}. <a class="link" href="podbor.html">Проверить мою машину</a></div></div>`
+    : `<div class="fit">${ICON.car}<div><b>Подойдёт ли к&nbsp;вашей машине?</b> Напишите марку, модель и&nbsp;год&nbsp;— подберём в&nbsp;переписке. <a class="link" href="podbor.html">Подбор по&nbsp;авто</a></div></div>`;
+  const specs = p.specs.length
+    ? `<table class="specs">${p.specs.map(([k, v]) => `<tr><td>${k}</td><td>${v}</td></tr>`).join('')}</table>`
+    : `<p><span class="need">характеристики товара</span></p>`;
+
+  document.getElementById('product').innerHTML = `
+    <div class="gallery">
+      <div class="main" id="main-ph">${ph(p, 'фото товара', 'tall')}</div>
+      <div class="thumbs">${['фото', 'в фаре', 'как светит', 'видео'].map((l, i) => `<div class="${i ? '' : 'on'}" onclick="thumb(this)">${ph(p, l)}</div>`).join('')}</div>
+    </div>
+    <div>
+      <div class="tags" style="display:flex;gap:6px;flex-wrap:wrap">${p.bases.map(b => `<span class="tag">Цоколь ${b}</span>`).join('')}${p.v24 ? '<span class="tag v24">12/24 V</span>' : ''}<span class="tag" style="color:var(--ok)">В&nbsp;наличии <span class="src">(для&nbsp;примера)</span></span></div>
+      <h1 style="font-size:clamp(24px,2.4vw,32px);margin-top:14px">${p.name}</h1>
+      <div class="p-price">${RUB(p.price)}</div>
+      <div class="src">Цена из&nbsp;магазина ВКонтакте. Доставка Яндекс Доставкой уже в&nbsp;цене. <span class="need">цена за штуку или за пару?</span></div>
+      <p style="color:#c4d0e8;margin-top:16px">${p.lead}</p>
+      ${lightRow}
+      <div class="p-buy">
+        <div class="qty"><button onclick="q(-1)" aria-label="Меньше">−</button><span id="qty">1</span><button onclick="q(1)" aria-label="Больше">+</button></div>
+        <button class="btn big" onclick="cartAdd('${p.id}', picked.light, picked.qty)">В&nbsp;корзину</button>
+        <a class="btn ghost big" href="${TG}" target="_blank" rel="noopener">Спросить в&nbsp;Telegram</a>
+      </div>
+      ${p.price >= 3000 ? `<p class="src" style="margin:-6px 0 16px">Можно в&nbsp;рассрочку от&nbsp;Т-Банка&nbsp;— на&nbsp;покупки от&nbsp;3&nbsp;000&nbsp;₽, банк отвечает быстро.</p>` : ''}
+      ${fit}
+      <div class="acc" style="margin-top:20px">
+        <button onclick="acc(this)">Характеристики <span>−</span></button>
+        <div class="open">${specs}<p class="src" style="margin-top:10px">Источник: ${p.src}</p></div>
+        <button onclick="acc(this)">Как светит: видеообзор <span>+</span></button>
+        <div><p>Здесь будет видео из&nbsp;группы: яркость, светотеневая граница и&nbsp;дальность в&nbsp;реальных условиях. <span class="need">видео</span></p></div>
+        <button onclick="acc(this)">Доставка и&nbsp;оплата <span>+</span></button>
+        <div><p>Отправляем в&nbsp;любой регион России, в&nbsp;Беларусь, Казахстан и&nbsp;СНГ: Яндекс Доставка, СДЭК, Boxberry, Почта России, Авито Доставка. Оплата картой, по&nbsp;QR-коду, по&nbsp;счёту для&nbsp;юрлиц или в&nbsp;рассрочку от&nbsp;3&nbsp;000&nbsp;₽.</p><p><a class="link" href="delivery.html">Подробнее</a></p></div>
+        <button onclick="acc(this)">Гарантия <span>+</span></button>
+        <div><p>Гарантия 1&nbsp;год. Условия возврата и&nbsp;обмена&nbsp;— <span class="need">условия возврата</span></p></div>
+      </div>
+    </div>`;
+  const rel = PRODUCTS.filter(x => x.id !== p.id && (x.cat === 'acc' || x.bases.some(b => p.bases.includes(b)) || x.cat === p.cat));
+  document.getElementById('related').innerHTML = rel.slice(0, 4).map(cardHTML).join('');
+}
+function pickLight(el, l) { picked.light = l; document.querySelectorAll('.opt').forEach(o => o.classList.remove('on')); el.classList.add('on'); }
+function q(d) { picked.qty = Math.max(1, picked.qty + d); document.getElementById('qty').textContent = picked.qty; }
+function thumb(el) { document.querySelectorAll('.thumbs > div').forEach(d => d.classList.remove('on')); el.classList.add('on'); }
+function acc(btn) { const b = btn.nextElementSibling; b.classList.toggle('open'); btn.querySelector('span').textContent = b.classList.contains('open') ? '−' : '+'; }
+document.addEventListener('DOMContentLoaded', paint);
+</script>
+</body>
+</html>

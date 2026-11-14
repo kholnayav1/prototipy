@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Центр автосвета — LED-лампы, линзы и ПТФ с подбором под ваше авто</title>
+<meta name="description" content="Светодиодные лампы H4, H7, H11, Bi-LED линзы, противотуманные фары и аксессуары для легковых и грузовых авто. Подбор под машину, доставка по России и СНГ.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Unbounded:wght@600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css?v=8">
+</head>
+<body data-page="home">
+<div id="site-header"></div>
+
+<!-- 1. Первый экран + подбор: главный вопрос покупателя — «что подойдёт к моей машине» -->
+<div class="hero">
+  <div class="wrap">
+    <div>
+      <div class="eyebrow">Центр автомобильного света</div>
+      <h1>Подберём <span>LED-лампы</span> под&nbsp;ваше&nbsp;авто</h1>
+      <p class="lead">Лампы H4, H7, H11, Bi-LED линзы, противотуманки и&nbsp;сигнальные огни для&nbsp;легковых и&nbsp;грузовых машин. Яркий свет с&nbsp;правильной светотеневой границей&nbsp;— не&nbsp;слепит&nbsp;встречных.</p>
+      <div class="hero-act">
+        <a href="catalog.html" class="btn big">Перейти в&nbsp;каталог →</a>
+        <button type="button" class="btn big dark" onclick="openLead()">Оставить заявку</button>
+      </div>
+      <div class="hero-usp">
+        <span>Гарантия 1&nbsp;год</span>
+        <span>Линейка на&nbsp;24&nbsp;V для&nbsp;грузовиков</span>
+        <span>Доставка по&nbsp;РФ и&nbsp;СНГ</span>
+        <span>Рассрочка от&nbsp;3&nbsp;000&nbsp;₽</span>
+      </div>
+    </div>
+    <div class="picker" id="picker">
+      <h3>Какая лампа подойдёт?</h3>
+      <p class="muted" style="font-size:14.5px;margin:0">Выберите машину&nbsp;— покажем цоколь и&nbsp;подходящие лампы.</p>
+      <label for="car">Ваш&nbsp;автомобиль</label>
+      <select id="car"><option value="">Выберите марку и&nbsp;модель</option></select>
+      <div class="pick-out" id="pick-out"><p style="margin:0">Нет&nbsp;вашей машины в&nbsp;списке? Напишите марку и&nbsp;год&nbsp;— специалист подберёт лампы в&nbsp;переписке.</p></div>
+    </div>
+  </div>
+  <svg class="beam" viewBox="0 0 1440 120" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M0 118 H760 L860 70 H1440" fill="none" stroke="#5fa0ff" stroke-opacity=".55" stroke-width="2"/>
+  </svg>
+</div>
+
+<!-- 2. Разделы каталога -->
+<section>
+  <div class="wrap">
+    <div class="sec-head">
+      <div><h2>Каталог</h2><p>Шесть разделов: от&nbsp;лампы P21W за&nbsp;999&nbsp;₽ до&nbsp;Bi-LED противотуманок.</p></div>
+      <a href="catalog.html" class="link-more">Все&nbsp;товары →</a>
+    </div>
+    <div class="cats" id="cats"></div>
+  </div>
+</section>
+
+<!-- 3. Хиты -->
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-head">
+      <div><h2>Чаще всего берут</h2><p>Подборка для&nbsp;примера&nbsp;— сюда встанут ваши хиты продаж.</p></div>
+      <a href="catalog.html" class="link-more">Смотреть всё →</a>
+    </div>
+    <div class="goods" id="hits"></div>
+  </div>
+</section>
+
+<!-- 4. Боль: «слепят ли встречных» -->
+<section style="padding-top:0">
+  <div class="wrap split">
+    <div>
+      <div class="eyebrow">Светотеневая граница</div>
+      <h2>Ярко для&nbsp;вас, безопасно для&nbsp;встречных</h2>
+      <p class="muted">Дешёвая LED-лампа светит «пятном»: обочина в&nbsp;темноте, встречные водители ослеплены. У&nbsp;линзованных ламп свет обрезается ровной линией&nbsp;— СТГ. Ниже линии&nbsp;— дорога, выше&nbsp;— ничего лишнего.</p>
+      <p class="muted">Покажем на&nbsp;видео, как&nbsp;светит каждая лампа, до&nbsp;покупки.</p>
+      <a href="catalog.html?cat=head" class="btn" style="margin-top:10px">Лампы с&nbsp;линзой</a>
+    </div>
+    <div class="compare">
+      <div class="bad"><h4>Лампа без&nbsp;линзы</h4><span class="muted" style="font-size:14px">Рассеянное пятно, свет во&nbsp;встречку</span>
+        <svg viewBox="0 0 200 96"><path d="M10 60 Q100 -10 200 10 L200 96 L10 70 Z" fill="#ffd27a" opacity=".25"/><circle cx="10" cy="64" r="7" fill="#fff"/></svg></div>
+      <div class="good"><h4>Лампа с&nbsp;линзой</h4><span class="muted" style="font-size:14px">Чёткая граница, свет на&nbsp;дорогу</span>
+        <svg viewBox="0 0 200 96"><path d="M10 62 L120 56 L140 44 L200 40 L200 96 L10 70 Z" fill="#8fbaff" opacity=".35"/><path d="M10 62 L120 56 L140 44 L200 40" stroke="#8fbaff" fill="none" stroke-width="1.5"/><circle cx="10" cy="64" r="7" fill="#fff"/></svg></div>
+    </div>
+  </div>
+</section>
+
+<!-- 5. Грузовикам -->
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="truck">
+      <div>
+        <div class="eyebrow" style="color:var(--amber)">Грузовикам и&nbsp;спецтехнике</div>
+        <h2>Полная линейка ламп на&nbsp;24&nbsp;V</h2>
+        <p class="muted">«Часто от&nbsp;владельцев грузовиков поступают вопросы про&nbsp;светодиодные лампы с&nbsp;питанием от&nbsp;24V. Вы&nbsp;просили&nbsp;— мы&nbsp;сделали!» В&nbsp;головной свет:</p>
+        <div class="bases"><span>H1</span><span>H4</span><span>H7</span><span>H11</span><span>9005</span><span>9006</span><span>9012</span></div>
+        <p class="muted" style="margin-top:-6px">А&nbsp;также габариты, ДХО, поворотники, стоп-сигналы и&nbsp;свет в&nbsp;салон.</p>
+        <a href="catalog.html?v24=1" class="btn" style="margin-top:8px">Лампы на&nbsp;24&nbsp;V</a>
+      </div>
+      <div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 6. Почему у нас -->
+<section style="padding-top:0">
+  <div class="wrap">
+    <h2 style="margin-bottom:8px">Почему покупают у&nbsp;нас</h2>
+    <div id="stg1"></div>
+    <div class="usp">
+      <div><div class="ic"></div><b>Подбор под&nbsp;машину</b><span>Объясним «на&nbsp;пальцах», какая лампа встанет в&nbsp;вашу фару и&nbsp;будет правильно фокусироваться.</span></div>
+      <div><div class="ic"></div><b>Гарантия 1&nbsp;год</b><span>Лампы H4 встают в&nbsp;штатный цоколь без&nbsp;разбора фары&nbsp;— справитесь за&nbsp;15&nbsp;минут.</span></div>
+      <div><div class="ic"></div><b>Доставка в&nbsp;цене</b><span>Цена на&nbsp;сайте уже&nbsp;с&nbsp;доставкой Яндекс Доставкой в&nbsp;ваш&nbsp;город.</span></div>
+      <div><div class="ic"></div><b>Видео до&nbsp;покупки</b><span>Снимаем обзоры: яркость, светотеневая граница и&nbsp;дальность света видны ещё&nbsp;до&nbsp;заказа.</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 7. Как заказать — продажи только дистанционно -->
+<section style="padding-top:0">
+  <div class="wrap">
+    <h2 style="margin-bottom:8px">Как&nbsp;заказать</h2>
+    <p class="muted" style="margin-bottom:22px">Работаем дистанционно по&nbsp;всей России, Беларуси, Казахстану и&nbsp;СНГ.</p>
+    <div class="usp three">
+      <div><div class="ic">1</div><b>Выберите лампу</b><span>В&nbsp;каталоге по&nbsp;цоколю или&nbsp;через&nbsp;подбор по&nbsp;машине. Не&nbsp;уверены&nbsp;— напишите, подберём в&nbsp;переписке.</span></div>
+      <div><div class="ic">2</div><b>Оплатите удобно</b><span>Картой, по&nbsp;QR-коду, в&nbsp;рассрочку от&nbsp;3&nbsp;000&nbsp;₽ или&nbsp;по&nbsp;счёту для&nbsp;юрлиц.</span></div>
+      <div><div class="ic">3</div><b>Получите в&nbsp;своём городе</b><span>Яндекс Доставка уже&nbsp;в&nbsp;цене. Если&nbsp;её&nbsp;нет&nbsp;— отправим СДЭК, Boxberry или&nbsp;Почтой России.</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 8. Отзывы — карусель. Реальных отзывов в группе нет: тексты для примера -->
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-head">
+      <div><h2>Отзывы автолюбителей</h2><p>Тексты для&nbsp;примера&nbsp;— заменим настоящими отзывами ваших покупателей. <span class="need">отзывы</span></p></div>
+      <div class="rv-nav">
+        <button class="rv-btn" id="rv-prev" aria-label="Предыдущие отзывы">←</button>
+        <button class="rv-btn" id="rv-next" aria-label="Следующие отзывы">→</button>
+      </div>
+    </div>
+    <div class="reviews" id="reviews"></div>
+  </div>
+</section>
+
+<!-- 9. Заявка на подбор -->
+<section style="padding-top:0" id="lead">
+  <div class="wrap">
+    <div class="lead-box split">
+      <div>
+        <div class="eyebrow">Подбор ламп</div>
+        <h2>Не&nbsp;знаете, какая лампа нужна для&nbsp;вашего авто?</h2>
+        <p class="muted" style="font-size:17px;max-width:44ch">Оставьте заявку на&nbsp;подбор, и&nbsp;мы&nbsp;подберём лампы конкретно под&nbsp;вашу марку и&nbsp;модель.</p>
+      </div>
+      <form class="picker" id="lead-form" onsubmit="leadSend(event)">
+        <div class="field"><label for="l-car">Марка и&nbsp;модель</label><input id="l-car" required placeholder="Например, Kia Rio"></div>
+        <div class="two">
+          <div class="field"><label for="l-year">Год выпуска</label><input id="l-year" inputmode="numeric" placeholder="2018"></div>
+          <div class="field"><label for="l-name">Имя</label><input id="l-name" autocomplete="name"></div>
+        </div>
+        <div class="field"><label for="l-phone">Телефон или&nbsp;Telegram</label><input id="l-phone" required placeholder="+7 или&nbsp;@ник"></div>
+        <button class="btn wide big" type="submit">Подобрать лампу</button>
+        <label class="consent"><input type="checkbox" required> <span>Согласие на&nbsp;<a class="link" href="#" onclick="event.preventDefault();toast('Здесь будет документ о&nbsp;персональных данных')">обработку персональных данных</a></span></label>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- 10. Вопросы — из постов и комментариев группы -->
+<section style="padding-top:0">
+  <div class="wrap">
+    <h2 style="margin-bottom:8px">Частые вопросы</h2>
+    <div class="faq">
+      <details open><summary>Как&nbsp;светят ваши лампы?</summary>
+        <p>Снимаем видеообзоры: показываем яркость, чёткость и&nbsp;дальность света в&nbsp;реальных условиях. Видео есть в&nbsp;карточке товара и&nbsp;в&nbsp;нашем Telegram.</p></details>
+      <details><summary>Подойдёт&nbsp;ли лампа к&nbsp;моей машине?</summary>
+        <p>Лампа может не&nbsp;поместиться в&nbsp;фару из-за&nbsp;радиатора или&nbsp;дать ошибку на&nbsp;приборной панели. Поэтому подбираем под&nbsp;конкретную машину: напишите марку, модель и&nbsp;год&nbsp;— предложим варианты, которые встанут по&nbsp;креплению и&nbsp;правильно сфокусируются.</p></details>
+      <details><summary>Будут&nbsp;ли лампы слепить встречных?</summary>
+        <p>Лампы с&nbsp;линзой дают чёткую светотеневую границу и&nbsp;не&nbsp;слепят. С&nbsp;противотуманками важна регулировка: многие ставят вместо туманок неподходящие фары или&nbsp;не&nbsp;регулируют их&nbsp;— отсюда ослепление. Подскажем, как&nbsp;настроить.</p></details>
+      <details><summary>Есть лампы на&nbsp;24&nbsp;V для&nbsp;грузовика?</summary>
+        <p>Да:&nbsp;H1, H4, H7, H11, 9005, 9006, 9012 в&nbsp;головной свет, а&nbsp;также габариты, ДХО, поворотники, стопы и&nbsp;салон.</p></details>
+      <details><summary>Есть такие&nbsp;же, но&nbsp;без&nbsp;стробоскопа?</summary>
+        <p>Да,&nbsp;есть версии без&nbsp;эффекта стробоскопа&nbsp;— для&nbsp;обычной езды.</p></details>
+      <details><summary>Сколько стоит доставка?</summary>
+        <p>Цена товара уже&nbsp;включает доставку Яндекс Доставкой в&nbsp;ваш&nbsp;город. Если&nbsp;в&nbsp;вашем городе её&nbsp;нет&nbsp;— согласуем СДЭК, Boxberry или&nbsp;Почту России.</p></details>
+    </div>
+  </div>
+</section>
+
+<!-- окно заявки на подбор -->
+<div class="modal" id="lead-modal" role="dialog" aria-modal="true" aria-labelledby="lm-title">
+  <form class="picker modal-box" id="lm-form" onsubmit="lmSend(event)">
+    <button type="button" class="modal-x" onclick="closeLead()" aria-label="Закрыть">×</button>
+    <h3 id="lm-title">Заявка на&nbsp;подбор лампы</h3>
+    <p class="muted" style="font-size:14.5px;margin:4px 0 16px">Подберём лампы конкретно под&nbsp;вашу марку и&nbsp;модель.</p>
+    <div class="field"><label for="m-car">Марка и&nbsp;модель</label><input id="m-car" required placeholder="Например, Kia Rio"></div>
+    <div class="two">
+      <div class="field"><label for="m-year">Год выпуска</label><input id="m-year" inputmode="numeric" placeholder="2018"></div>
+      <div class="field"><label for="m-name">Имя</label><input id="m-name" autocomplete="name"></div>
+    </div>
+    <div class="field"><label for="m-phone">Телефон или&nbsp;Telegram</label><input id="m-phone" required placeholder="+7 или&nbsp;@ник"></div>
+    <button class="btn wide big" type="submit">Подобрать лампу</button>
+    <label class="consent"><input type="checkbox" required> <span>Согласие на&nbsp;<a class="link" href="#" onclick="event.preventDefault();toast('Здесь будет документ о&nbsp;персональных данных')">обработку персональных данных</a></span></label>
+  </form>
+</div>
+
+<div id="site-footer"></div>
+<script src="js/data.js?v=2"></script>
+<script src="js/main.js?v=3"></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  // разделы
+  document.getElementById('cats').innerHTML = CATEGORIES.map(c => {
+    const n = PRODUCTS.filter(p => p.cat === c.id).length;
+    return `<a class="cat-tile" href="catalog.html?cat=${c.id}"><em>${n} ${plural(n, 'товар', 'товара', 'товаров')} в&nbsp;прототипе</em><b>${c.name}</b><span>${c.short}</span></a>`;
+  }).join('');
+  // хиты
+  document.getElementById('hits').innerHTML = PRODUCTS.filter(p => p.hit).slice(0, 4).map(cardHTML).join('');
+  // иконки преимуществ и линия СТГ
+  document.getElementById('stg1').innerHTML = STG;
+  const ics = [ICON.car, ICON.shield, ICON.box, ICON.bulb];
+  document.querySelectorAll('#stg1 + .usp .ic').forEach((el, i) => el.innerHTML = ics[i]);
+  document.querySelector('.truck > div:last-child').innerHTML = ph({ light: ['Жёлтый 3000 K'] }, 'фото грузовика с вашими лампами', 'tall');
+
+// отзывы: для примера, пока нет настоящих
+const REVIEWS = [
+  ['Андрей', 'Lada Granta', 'LED-линзы A1 H4', 'Поставил сам за&nbsp;15&nbsp;минут, ничего не&nbsp;разбирал. Ночью на&nbsp;трассе видно обочину, встречные не&nbsp;моргают.'],
+  ['Сергей', 'грузовик, 24&nbsp;V', 'H4 с&nbsp;пультом', 'Долго искал лампы на&nbsp;24&nbsp;V, тут подобрали по&nbsp;переписке. Жёлтый режим выручает в&nbsp;дождь.'],
+  ['Ирина', 'Hyundai Solaris', 'P21W для&nbsp;ДХО', 'Боялась ошибок на&nbsp;панели&nbsp;— всё работает. Доставка пришла в&nbsp;пункт Яндекса рядом с&nbsp;домом.'],
+  ['Дмитрий', 'УАЗ Патриот', 'Балка 6"', 'Взял балку на&nbsp;бампер для&nbsp;рыбалки. Светит далеко, после мойки и&nbsp;грязи всё живое.'],
+  ['Алексей', 'Kia Rio', 'Лампа A10 H4', 'Скинули видео, как&nbsp;светит, до&nbsp;покупки&nbsp;— это и&nbsp;решило. Свет ровный, граница чёткая.'],
+  ['Максим', 'Toyota', 'Bi-LED ПТФ', 'Туманки встали на&nbsp;штатные места, подсказали, как&nbsp;отрегулировать, чтобы не&nbsp;слепили.']
+];
+document.getElementById('reviews').innerHTML = REVIEWS.map(([n, car, item, txt]) => `
+  <article class="rv">
+    <div class="rv-stars" aria-label="5 из 5">★★★★★</div>
+    <p>«${txt}»</p>
+    <div class="rv-who"><span class="rv-ava">${n[0]}</span><div><b>${n}</b><span>${car} · ${item}</span></div></div>
+    <span class="need example" style="margin-top:12px"></span>
+  </article>`).join('');
+const track = document.getElementById('reviews');
+const step = () => track.querySelector('.rv').offsetWidth + 16;
+document.getElementById('rv-prev').onclick = () => track.scrollBy({ left: -step(), behavior: 'smooth' });
+document.getElementById('rv-next').onclick = () => track.scrollBy({ left: step(), behavior: 'smooth' });
+  // подбор по авто
+  const sel = document.getElementById('car');
+  sel.innerHTML += CARS.map(c => `<option value="${c.id}">${c.name}</option>`).join('');
+  sel.addEventListener('change', () => {
+    const car = CARS.find(c => c.id === sel.value), out = document.getElementById('pick-out');
+    if (!car) return;
+    if (car.base === '24V') {
+      out.innerHTML = `<div class="base">24&nbsp;V</div><p>Для грузовиков есть лампы H1, H4, H7, H11, 9005, 9006, 9012.</p><a class="btn wide" href="catalog.html?v24=1">Показать лампы на&nbsp;24&nbsp;V</a>`;
+    } else if (car.base === '7"') {
+      out.innerHTML = `<div class="base">Фара 7"</div><p>Bi-LED фара с&nbsp;двумя линзами ставится на&nbsp;штатные разъёмы, без&nbsp;доработок. Гарантия 12&nbsp;месяцев.</p><a class="btn wide" href="podbor.html?car=niva">Узнать цену</a>`;
+    } else {
+      const n = PRODUCTS.filter(p => p.bases.includes(car.base)).length;
+      out.innerHTML = `<div class="base">${car.base}</div><p>Цоколь ближнего и&nbsp;дальнего света для&nbsp;${car.name}. Подходит ${n} ${plural(n, 'лампа', 'лампы', 'ламп')}. Год и&nbsp;комплектацию уточним при&nbsp;заказе.</p><a class="btn wide" href="catalog.html?base=${car.base}">Показать лампы ${car.base}</a>`;
+    }
+  });
+});
+const LM_HTML = document.getElementById('lm-form').innerHTML;
+function openLead() { const m = document.getElementById('lead-modal'); const f = document.getElementById('lm-form'); if (!document.getElementById('m-car')) f.innerHTML = LM_HTML; m.classList.add('on'); setTimeout(() => document.getElementById('m-car').focus(), 50); }
+function closeLead() { document.getElementById('lead-modal').classList.remove('on'); }
+document.getElementById('lead-modal').addEventListener('click', e => { if (e.target.id === 'lead-modal') closeLead(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLead(); });
+function lmSend(e) {
+  e.preventDefault();
+  document.getElementById('lm-form').innerHTML = '<button type="button" class="modal-x" onclick="closeLead()" aria-label="Закрыть">×</button><h3>Заявка принята</h3><p class="muted">Специалист напишет вам и&nbsp;предложит лампы под&nbsp;вашу машину.</p><p class="src">Демо-режим: заявка никуда не&nbsp;отправлена.</p>';
+}
+function leadSend(e) {
+  e.preventDefault();
+  document.getElementById('lead-form').innerHTML = '<h3>Заявка принята</h3><p class="muted">Специалист напишет вам и&nbsp;предложит лампы под&nbsp;вашу машину.</p><p class="src">Демо-режим: заявка никуда не&nbsp;отправлена.</p>';
+}
+</script>
+</body>
+</html>

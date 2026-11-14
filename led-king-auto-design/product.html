@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Товар — Центр автосвета</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Unbounded:wght@600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css?v=1">
+</head>
+<body data-page="catalog">
+<div id="site-header"></div>
+<main class="wrap" id="pp-root"></main>
+<div id="site-footer"></div>
+<script src="js/data.js?v=1"></script>
+<script src="js/main.js?v=1"></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const p = byId(qs.get('id')) || byId(HITS[0]);
+  const cat = CATEGORIES.find(c => c.id === p.cat);
+  document.title = p.name + ' — Центр автосвета';
+  let qty = 1;
+  const specs = (p.specs || []).length
+    ? `<table class="spec">${p.specs.map(([k, v]) => `<tr><td>${k}</td><td>${v}</td></tr>`).join('')}</table>`
+    : '<p class="muted">Характеристики уточним при&nbsp;заказе&nbsp;— напишите нам в&nbsp;Telegram или&nbsp;ВКонтакте.</p>';
+  document.getElementById('pp-root').innerHTML = `
+    <div class="crumbs"><a href="index.html">Главная</a> / <a href="catalog.html">Каталог</a> / <a href="catalog.html?cat=${cat.id}">${cat.name}</a> / <span>${p.short || p.name}</span></div>
+    <div class="pp" style="margin-top:22px">
+      <div class="thumbs">${p.photos.map((f, i) => `<button type="button" data-i="${i}" class="${i ? '' : 'on'}" aria-label="Фото ${i + 1}"><img src="${f}" alt="" loading="lazy"></button>`).join('')}</div>
+      <div class="main-ph">${p.hit ? '<span class="badge">Хит</span>' : ''}<img id="big" src="${p.photos[0]}" alt="${p.name}"></div>
+      <div class="pinfo">
+        <div class="tags">${p.hit ? '<span class="hit">Хит</span>' : ''}${(p.tags || []).map(t => `<span>${t}</span>`).join('')}</div>
+        <h1>${p.name}</h1>
+        ${p.sku ? `<div class="note">Артикул: ${p.sku}</div>` : ''}
+        <div class="price">${p.price ? RUB(p.price) : 'Цена по&nbsp;запросу'}</div>
+        <div class="note">${p.price ? 'Цена уже с&nbsp;доставкой Яндекс Доставкой до&nbsp;вашего города' : 'Напишите нам&nbsp;— назовём цену и&nbsp;сроки'}</div>
+        ${p.stock ? `<div class="stock">● ${p.stock}</div>` : ''}
+        <div class="buy">
+          <div class="qty"><button type="button" id="minus" aria-label="Меньше">−</button><span id="q">1</span><button type="button" id="plus" aria-label="Больше">+</button></div>
+          <button class="btn" type="button" id="add">${ICON.cart(20)} В&nbsp;корзину</button>
+        </div>
+        <a class="btn ghost wide" href="${TG}" target="_blank" rel="noopener">${ICON.tg(18)} Спросить в&nbsp;Telegram</a>
+        ${p.fits ? `<div class="fits">${ICON.car(26)}<span><b>Подходит для:</b> ${p.fits}</span></div>` : ''}
+      </div>
+    </div>
+    <div class="tabs" role="tablist">
+      <button class="on" data-t="t1">Описание</button><button data-t="t2">Характеристики</button><button data-t="t3">Видеообзор</button><button data-t="t4">Доставка и&nbsp;оплата</button><button data-t="t5">Гарантия</button>
+    </div>
+    <div class="tab on" id="t1"><div class="desc">${p.desc || ''}</div></div>
+    <div class="tab" id="t2">${specs}</div>
+    <div class="tab" id="t3"><p class="desc">Снимаем видеообзоры: как&nbsp;светит лампа, какая у&nbsp;неё светотеневая граница и&nbsp;дальность. Попросите видео этой модели в&nbsp;Telegram или&nbsp;ВКонтакте&nbsp;— пришлём до&nbsp;покупки.</p>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:16px"><a class="btn sm" href="${TG}" target="_blank" rel="noopener">Telegram</a><a class="btn ghost sm" href="${VK}" target="_blank" rel="noopener">ВКонтакте</a></div></div>
+    <div class="tab" id="t4"><p class="desc">Отправляем в&nbsp;любой регион России, в&nbsp;Беларусь, Казахстан и&nbsp;страны СНГ. Основная доставка&nbsp;— Яндекс Доставка, её&nbsp;стоимость уже в&nbsp;цене. Также СДЭК, Boxberry, Почта России.
+Оплата: карта Visa или&nbsp;MasterCard, QR-код, рассрочка от&nbsp;Т-Банка от&nbsp;3&nbsp;000&nbsp;₽, безнал по&nbsp;счёту для&nbsp;юрлиц.</p><a class="link-more" href="delivery.html" style="display:inline-block;margin-top:12px">Подробнее о&nbsp;доставке →</a></div>
+    <div class="tab" id="t5"><p class="desc">Гарантия на&nbsp;лампы&nbsp;— 1&nbsp;год.</p></div>
+    <section class="related"><div class="sec-head"><h2 style="font-size:30px">Похожие товары</h2><a class="link-more" href="catalog.html?cat=${cat.id}">Весь раздел →</a></div>
+      <div class="goods">${PRODUCTS.filter(x => x.cat === p.cat && x.id !== p.id).slice(0, 4).map(cardHTML).join('')}</div></section>`;
+  document.querySelector('.thumbs').onclick = e => {
+    const b = e.target.closest('button'); if (!b) return;
+    document.getElementById('big').src = p.photos[b.dataset.i];
+    document.querySelectorAll('.thumbs button').forEach(x => x.classList.toggle('on', x === b));
+  };
+  document.getElementById('minus').onclick = () => { qty = Math.max(1, qty - 1); document.getElementById('q').textContent = qty; };
+  document.getElementById('plus').onclick = () => { qty++; document.getElementById('q').textContent = qty; };
+  document.getElementById('add').onclick = () => cartAdd(p.id, qty);
+  document.querySelector('.tabs').onclick = e => {
+    const b = e.target.closest('button'); if (!b) return;
+    document.querySelectorAll('.tabs button').forEach(x => x.classList.toggle('on', x === b));
+    document.querySelectorAll('.tab').forEach(t => t.classList.toggle('on', t.id === b.dataset.t));
+  };
+});
+</script>
+</body>
+</html>

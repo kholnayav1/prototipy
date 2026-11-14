@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Каталог — Центр автосвета</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Unbounded:wght@600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css?v=8">
+</head>
+<body data-page="catalog">
+<div id="site-header"></div>
+<div class="wrap">
+  <div class="crumbs"><a href="index.html">Главная</a> · <span id="crumb-now">Каталог</span></div>
+  <h1 id="cat-title" style="margin-bottom:8px">Каталог</h1>
+  <p id="cat-sub" class="muted" style="max-width:66ch;margin-bottom:26px">Выборка из&nbsp;61&nbsp;товара магазина ВКонтакте. На&nbsp;рабочем сайте здесь будет весь&nbsp;ассортимент.</p>
+  <div class="catalog">
+    <aside class="filters">
+      <div class="f-group"><b>Раздел</b><div id="f-cat"></div></div>
+      <div class="f-group"><b>Цоколь</b><div class="base-chips" id="f-base"></div>
+        <p style="font-size:13px;margin:10px 0 0"><a class="link" href="podbor.html">Не&nbsp;знаю цоколь</a></p></div>
+      <div class="f-group"><b>Цвет света</b><div id="f-light"></div></div>
+      <div class="f-group"><b>Питание</b><label><input type="checkbox" id="f-v24"> Подходит для&nbsp;24&nbsp;V</label></div>
+      <div class="f-group"><b>Цена</b>
+        <label><input type="checkbox" data-price="0-1999"> до&nbsp;2&nbsp;000&nbsp;₽</label>
+        <label><input type="checkbox" data-price="2000-4999"> 2&nbsp;000&nbsp;—&nbsp;5&nbsp;000&nbsp;₽</label>
+        <label><input type="checkbox" data-price="5000-99999"> от&nbsp;5&nbsp;000&nbsp;₽</label>
+      </div>
+      <button class="btn ghost wide" style="margin-top:14px" onclick="resetAll()">Сбросить</button>
+    </aside>
+    <div>
+      <div class="catalog-top">
+        <span id="found" class="muted"></span>
+        <select id="sort" aria-label="Сортировка">
+          <option value="default">По&nbsp;умолчанию</option>
+          <option value="cheap">Сначала дешевле</option>
+          <option value="expensive">Сначала дороже</option>
+        </select>
+      </div>
+      <div class="chips" id="chips"></div>
+      <div class="goods cols3" id="grid"></div>
+      <div class="empty" id="empty" style="display:none">
+        <p>По&nbsp;этим фильтрам ничего нет.&nbsp;Напишите нам&nbsp;— подберём вручную.</p>
+        <button class="btn ghost" onclick="resetAll()">Сбросить фильтры</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="site-footer"></div>
+<script src="js/data.js?v=2"></script>
+<script src="js/main.js?v=3"></script>
+<script>
+const state = { cat: [], base: [], light: [], price: [], v24: false, q: '', sort: 'default' };
+const uniq = a => [...new Set(a)];
+
+function buildFilters() {
+  document.getElementById('f-cat').innerHTML = CATEGORIES.map(c =>
+    `<label><input type="checkbox" data-cat="${c.id}"> ${c.name}</label>`).join('');
+  document.getElementById('f-base').innerHTML = uniq(PRODUCTS.flatMap(p => p.bases)).map(b =>
+    `<button data-base="${b}">${b}</button>`).join('');
+  document.getElementById('f-light').innerHTML = uniq(PRODUCTS.flatMap(p => p.light)).map(l =>
+    `<label><input type="checkbox" data-light="${l}"><span class="sw" style="background:${LIGHT_HEX[l]}"></span> ${l}</label>`).join('');
+
+  document.querySelectorAll('[data-cat]').forEach(i => i.onchange = () => toggle('cat', i.dataset.cat, i.checked));
+  document.querySelectorAll('[data-light]').forEach(i => i.onchange = () => toggle('light', i.dataset.light, i.checked));
+  document.querySelectorAll('[data-price]').forEach(i => i.onchange = () => toggle('price', i.dataset.price, i.checked));
+  document.querySelectorAll('[data-base]').forEach(b => b.onclick = () => toggle('base', b.dataset.base, !state.base.includes(b.dataset.base)));
+  document.getElementById('f-v24').onchange = e => { state.v24 = e.target.checked; render(); };
+  document.getElementById('sort').onchange = e => { state.sort = e.target.value; render(); };
+}
+function toggle(f, v, on) {
+  state[f] = on ? uniq([...state[f], v]) : state[f].filter(x => x !== v);
+  render();
+}
+function syncInputs() {
+  document.querySelectorAll('[data-cat]').forEach(i => i.checked = state.cat.includes(i.dataset.cat));
+  document.querySelectorAll('[data-light]').forEach(i => i.checked = state.light.includes(i.dataset.light));
+  document.querySelectorAll('[data-price]').forEach(i => i.checked = state.price.includes(i.dataset.price));
+  document.querySelectorAll('[data-base]').forEach(b => b.classList.toggle('on', state.base.includes(b.dataset.base)));
+  document.getElementById('f-v24').checked = state.v24;
+}
+function applyURL() {
+  if (qs.get('cat')) state.cat = [qs.get('cat')];
+  if (qs.get('base')) state.base = [qs.get('base')];
+  if (qs.get('v24')) state.v24 = true;
+  if (qs.get('q')) { state.q = qs.get('q').trim(); document.querySelector('.search input').value = state.q; }
+  const t = document.getElementById('cat-title'), s = document.getElementById('cat-sub'), cr = document.getElementById('crumb-now');
+  const cat = CATEGORIES.find(c => c.id === qs.get('cat'));
+  if (cat) { t.textContent = cat.name; s.textContent = cat.short; cr.textContent = cat.name; }
+  if (state.v24) { t.textContent = 'Лампы на 24 V'; s.innerHTML = 'Для&nbsp;грузовиков, автобусов и&nbsp;спецтехники. В&nbsp;головной свет&nbsp;— H1, H4, H7, H11, 9005, 9006, 9012.'; cr.textContent = 'Грузовикам 24 V'; }
+  if (state.base.length) { t.textContent = 'Лампы ' + state.base[0]; cr.textContent = 'Цоколь ' + state.base[0]; }
+  if (state.q) { t.textContent = 'Поиск: ' + state.q; cr.textContent = 'Поиск'; }
+}
+function filtered() {
+  const q = state.q.toLowerCase();
+  let list = PRODUCTS.filter(p =>
+    (!state.cat.length || state.cat.includes(p.cat)) &&
+    (!state.base.length || p.bases.some(b => state.base.includes(b))) &&
+    (!state.light.length || p.light.some(l => state.light.includes(l))) &&
+    (!state.v24 || p.v24) &&
+    (!q || (p.name + ' ' + p.bases.join(' ') + ' ' + p.lead).toLowerCase().includes(q)) &&
+    (!state.price.length || state.price.some(r => { const [a, b] = r.split('-').map(Number); return p.price >= a && p.price <= b; })));
+  if (state.sort === 'cheap') list.sort((a, b) => a.price - b.price);
+  if (state.sort === 'expensive') list.sort((a, b) => b.price - a.price);
+  return list;
+}
+function chips() {
+  const out = [];
+  const add = (f, v, label) => out.push(`<span class="chip">${label}<button onclick="drop('${f}','${v}')" aria-label="Убрать">×</button></span>`);
+  state.cat.forEach(v => add('cat', v, CATEGORIES.find(c => c.id === v).name));
+  state.base.forEach(v => add('base', v, 'Цоколь ' + v));
+  state.light.forEach(v => add('light', v, v));
+  state.price.forEach(v => add('price', v, v.replace('-', '–').replace('99999', '…') + ' ₽'));
+  if (state.v24) add('v24', '', '24 V');
+  if (state.q) add('q', '', '«' + state.q + '»');
+  document.getElementById('chips').innerHTML = out.join('');
+}
+function drop(f, v) {
+  if (f === 'v24') state.v24 = false; else if (f === 'q') state.q = ''; else state[f] = state[f].filter(x => x !== v);
+  render();
+}
+function resetAll() { Object.assign(state, { cat: [], base: [], light: [], price: [], v24: false, q: '' }); render(); }
+function render() {
+  syncInputs();
+  const list = filtered();
+  document.getElementById('grid').innerHTML = list.map(cardHTML).join('');
+  document.getElementById('found').textContent = `${list.length} ${plural(list.length, 'товар', 'товара', 'товаров')}`;
+  document.getElementById('empty').style.display = list.length ? 'none' : 'block';
+  chips();
+}
+document.addEventListener('DOMContentLoaded', () => { buildFilters(); applyURL(); render(); });
+</script>
+</body>
+</html>
