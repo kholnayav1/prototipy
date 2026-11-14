@@ -80,10 +80,11 @@ nav.main a.on::after{content:'';position:absolute;left:0;right:0;bottom:-27px;he
 /* первый экран */
 .hero{position:relative;overflow:hidden;background:#03070F}
 .hero::before{content:'';position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(0deg,var(--bg) 0%,transparent 14%)}
-.hero h1{font-size:56px}
+/* размер заголовка подстраивается: самая длинная строка («который не слепит») всегда помещается в колонку текста */
+.hero h1{font-size:min(56px, calc((min(100vw, 1200px) - 96px) / 25))}
 .hero .wrap{position:relative;z-index:1;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:48px;align-items:center;min-height:660px;padding-top:56px;padding-bottom:80px}
 .hero h1 span{display:block;white-space:nowrap;color:var(--accent);text-shadow:0 0 30px rgba(47,124,255,.45)}
-.hero .lead{color:var(--muted);font-size:18px;max-width:540px;margin:22px 0 32px}
+.hero .lead{color:var(--muted);font-size:18px;max-width:540px;margin:22px 0 32px;text-wrap:balance}
 .hero .eyebrow{margin-bottom:18px}
 .hero-act{display:flex;gap:16px;flex-wrap:wrap}
 .hero-tags{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px;max-width:560px}
@@ -113,7 +114,20 @@ nav.main a.on::after{content:'';position:absolute;left:0;right:0;bottom:-27px;he
 @keyframes lk-draw{from{stroke-dashoffset:1600}to{stroke-dashoffset:0}}
 .hero-night{display:none}
 @keyframes lk-night{0%,30%{opacity:.85}38%{opacity:.35}44%{opacity:.7}100%{opacity:0}}
-@media (prefers-reduced-motion:reduce){.hero-photo img,.glow,.beam path,.hero-night{animation:none!important}.glow{opacity:.35}.gl-f{opacity:.3}.hero-night{opacity:0}}
+/* лёгкая «жизнь» фона после включения фар: машина медленно дышит, дым плывёт, фары пульсируют, по линии СТГ бежит огонёк */
+.hero-photo .car{animation:lk-breathe 16s ease-in-out 3s infinite alternate}
+@keyframes lk-breathe{from{scale:1}to{scale:1.04}}
+.gl-l,.gl-r{animation:lk-ignite 1.8s ease-out .6s both,lk-pulse 3.5s ease-in-out 2.4s infinite alternate}
+@keyframes lk-pulse{from{opacity:.35}to{opacity:.62}}
+.hero-fog{position:absolute;inset:0;overflow:hidden;pointer-events:none;opacity:0;animation:lk-fade 2s ease-out 2.2s forwards}
+.hero-fog i{position:absolute;border-radius:50%;filter:blur(40px);mix-blend-mode:screen;background:radial-gradient(closest-side,rgba(74,151,255,.28),rgba(47,124,255,.08) 60%,transparent)}
+.hero-fog i:nth-child(1){width:46%;height:60%;left:50%;top:18%;animation:lk-fog1 22s ease-in-out infinite alternate}
+.hero-fog i:nth-child(2){width:38%;height:48%;left:68%;top:42%;animation:lk-fog2 28s ease-in-out infinite alternate}
+@keyframes lk-fade{to{opacity:1}}
+@keyframes lk-fog1{from{transform:translate(0,0)}to{transform:translate(-14%,6%)}}
+@keyframes lk-fog2{from{transform:translate(0,0)}to{transform:translate(-18%,-10%)}}
+.beam .spark{filter:drop-shadow(0 0 4px #4A97FF) drop-shadow(0 0 10px #2F7CFF)}
+@media (prefers-reduced-motion:reduce){.hero-photo img,.glow,.beam path,.hero-night,.hero-photo .car,.hero-fog,.hero-fog i{animation:none!important}.beam .spark{display:none}.hero-fog{opacity:1}.glow{opacity:.35}.gl-f{opacity:.3}.hero-night{opacity:0}}
 .beam{z-index:1;position:absolute;left:0;right:0;bottom:22px;height:60px;width:100%;pointer-events:none}
 
 /* линия СТГ */
@@ -161,6 +175,10 @@ nav.main a.on::after{content:'';position:absolute;left:0;right:0;bottom:-27px;he
 .road .lbl{position:absolute;top:12px;left:12px;z-index:2;padding:4px 12px;border-radius:6px;background:rgba(10,15,26,.85);border:1px solid var(--line2);font-size:13px;font-weight:700}
 .road.good{border-color:var(--accent);box-shadow:var(--glow)}
 .road.good .lbl{background:var(--accent);border-color:var(--accent)}
+.road .cap{position:absolute;left:10px;right:10px;bottom:10px;z-index:2;padding:7px 12px;border-radius:8px;font-size:13px;font-weight:600;line-height:1.35;text-wrap:balance;background:rgba(6,10,20,.82);backdrop-filter:blur(4px)}
+.road .cap::before{display:inline-block;margin-right:6px;font-weight:800}
+.road .cap.bad{border:1px solid rgba(239,68,68,.55);color:#ffb4b4}.road .cap.bad::before{content:'✕';color:var(--warn)}
+.road .cap.ok{border:1px solid rgba(34,197,94,.55);color:#b9f5cd}.road .cap.ok::before{content:'✓';color:var(--ok)}
 
 .truck{display:grid;grid-template-columns:1fr 1fr;min-height:340px}
 .truck .txt{padding:40px;position:relative;z-index:2}
@@ -342,7 +360,7 @@ footer.site .bottom{grid-column:1/-1;border-top:1px solid var(--line);padding-to
 
 /* адаптив */
 @media (max-width:1180px){
-  .hero h1{font-size:46px}
+  .hero h1{font-size:min(56px, calc((min(100vw, 1200px) - 96px) / 25))}
   .search input{width:160px}
   nav.main{gap:20px}
   .cats{grid-template-columns:repeat(3,1fr)}
@@ -362,7 +380,7 @@ footer.site .bottom{grid-column:1/-1;border-top:1px solid var(--line);padding-to
   .mnav .search input{width:100%}
   .h-act{margin-left:auto}
   .hero .wrap{grid-template-columns:1fr;min-height:0}
-  .hero h1{font-size:46px}
+  .hero h1{font-size:min(46px, calc((100vw - 48px) / 12.5))}
   .hero .wrap>div{min-width:0}
   .hero{background:#03070F url(../img/hero-bg-2.jpg) 72% center/cover no-repeat}
   .hero-photo{display:none}
@@ -406,7 +424,7 @@ footer.site .bottom{grid-column:1/-1;border-top:1px solid var(--line);padding-to
   .hero .wrap{padding-top:32px;padding-bottom:48px}
   .hero .lead{font-size:16px}
   .slider-nav{display:none}
-  .hero h1{font-size:32px}
+  .hero h1{font-size:calc((100vw - 32px) / 12.5)}
   .hero::before{background:linear-gradient(180deg,rgba(5,10,22,.75) 0%,rgba(5,10,22,.6) 60%,var(--bg) 100%)}
   .topbar .tel{white-space:nowrap}
   .topbar span:first-child{font-size:11px;line-height:1.3}
